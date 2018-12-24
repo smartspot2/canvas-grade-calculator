@@ -28,15 +28,19 @@ function createAssignment(asgnmt) {
 
     // Name of assignment
     var asgnmtName = document.createElement("h4");
+    asgnmtName.className = "assignmentName";
     asgnmtName.innerText = asgnmt.name;
     curAssignment.appendChild(asgnmtName);
 
-    var asgnmtScore = document.createElement("form")
-    asgnmtScore.innerHTML = ["Score: <input class='assignmentScoreGotten' value='",
+    var asgnmtScore = document.createElement("form");
+    asgnmtScore.className = "assignmentScore";
+    var scoreTextContainer = document.createElement("div");
+    scoreTextContainer.innerHTML = ["Score: <input class='assignmentScoreGotten' value='",
                               asgnmt.score[0],
                               "'> / <input class='assignmentScorePossible' value='",
                               asgnmt.score[1],
                               "'>"].join('');
+    asgnmtScore.appendChild(scoreTextContainer);
     curAssignment.appendChild(asgnmtScore);
 
     return curAssignment;
