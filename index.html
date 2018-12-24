@@ -3,7 +3,9 @@
 <head>
     <title>Canvas Grade Calculator</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="script.js"></script>
+    <script src="assignmentObjects.js"></script>
+    <script src="makeHTMLAssignments.js"></script>
+    <script src="parseText.js"></script>
 
     <!-- FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Oxygen|Source+Code+Pro" rel="stylesheet">
@@ -17,16 +19,54 @@
     <div id="content">
         <div id="step1">
             <div id="step1head">
-                <h2> Step 1: Copy-paste your grades from Canvas</h2>
+                <h2> Step 1: Copy-paste your assignments from Canvas</h2>
             </div>
             <div id="step1content">
-                <p>Go to the "Grades" page of your Canvas class, select everything and copy (Press <span class="keyboardshortcut">CTRL-A/&#8984-A</span> and then <span class="keyboardshortcut">CTRL-C/&#8984-C)</span>.</p>
+                <p>Go to the "Assignments" page of your Canvas class. Make sure that in the top right, "SHOW BY TYPE" is selected. Now, select everything and copy (Press <span class="keyboardshortcut">CTRL-A/&#8984-A</span> and then <span class="keyboardshortcut">CTRL-C/&#8984-C)</span>.</p>
 
                 <p>Then, paste the text into the text box below (Press <span class="keyboardshortcut">CTRL-V/&#8984-V</span>):</p>
                 <form name="copypasteform" id="copypasteform">
                     <textarea form="copypasteform" rows=20 cols=2 id="copypastefield"></textarea><br><br>
                     <input onclick="parseText()" id="submitbutton" name="submitbutton" form="copypastefield" type="submit" text="Submit">
                 </form>
+            </div>
+        </div>
+
+        <div id="step2">
+            <div id="step1head">
+                <h2> Step 2: Modify your grades and calculate totals</h2>
+            </div>
+            <div id="step2content">
+                <p>Your assignments and scores for each assignment are shown below. Change assignment scores and add assignments as you wish. The grade and totals will be calculated automatically.</p>
+
+                <script id="assignmentsObject"></script>
+                <script id="categoriesObject"></script>
+                <script id="weightsObject"></script>
+
+                <div id="assignmentwrapper">
+                    <div id="assignmentList">
+                        <!--<div class="category">
+                            <h3>Category Name</h3>
+
+                            <div class="assignment">
+                                <h4 class="assignmentName">Assignment 1</h4>
+                                <form class="assignmentScore">
+                                    Score: <input class="assignmentScoreGotten"> / <input class="assignmentScorePossible">
+                                </form>
+                            </div>
+                            
+                            <div class="assignment">
+                                <h4 class="assignmentName">Assignment 2</h4>
+                                <form class="assignmentScore">
+                                    Score: <input class="assignmentScoreGotten"> / <input class="assignmentScorePossible">
+                                </form>
+                            </div>
+                        </div>-->
+                    </div>
+                    <div id="grades">
+                        <h2>Total Grade: <span id="totalGrade"></span></h2>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
