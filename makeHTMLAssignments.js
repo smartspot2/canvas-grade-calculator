@@ -14,10 +14,22 @@ function makeHTMLAssignments() {
 function createCategory(cat) {
     var curCategory = document.createElement("div");
     curCategory.className = "category";
+    curCategory.id = cat.id;
+
+    var catHeader = document.createElement("div");
+    catHeader.className = "categoryHeader";
     
     var catName = document.createElement("h3");
+    catName.className = "categoryName";
     catName.innerHTML = cat.name + " <span class='categoryPercentage'>(" + cat.weight*100 + "%)</span>";
-    curCategory.appendChild(catName);
+    catHeader.appendChild(catName);
+
+    var catGrade = document.createElement("p");
+    catGrade.className = "categoryGrade";
+    catGrade.innerText = "placeholder";
+    catHeader.appendChild(catGrade);
+
+    curCategory.appendChild(catHeader);
 
     return curCategory
 }

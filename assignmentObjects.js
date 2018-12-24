@@ -12,6 +12,7 @@ class Category {
         this.assignments = [];
         this.name = name;
         this.weight = weight;
+        this.id = String(this.name.hashCode()).replace(/-/g, '') + String(this.weight).replace(/./g, '');
     }
 
     add(asgnmt) {

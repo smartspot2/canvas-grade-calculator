@@ -47,13 +47,21 @@ p {
             box-sizing: border-box;
 }
 
+#submitbutton {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px 10px 15px;
+    background-color: rgb(255, 174, 82);
+    font-family: 'Oxygen', sans-serif;
+}
+
 #assignmentwrapper {
     display: flex;
     width: 100%;
 }
 
 #assignmentList {
-    flex: 70%;
+    flex: 65%;
     margin-right:10px;
 }
 
@@ -62,6 +70,24 @@ p {
     background-color: rgb(255, 223, 185);
     padding: 15px 0px 25px 35px;
     margin: 5px 0px;
+}
+
+.categoryHeader {
+    display: flex;
+}
+
+h3.categoryName {
+    flex: 90%;
+    float: left;
+    text-align: left;
+    /* margin: auto; */
+}
+
+p.categoryGrade {
+    flex: 10%;
+    float: right;
+    text-align: right;
+    margin-right: 50px;
 }
 
 .categoryPercentage {
@@ -79,7 +105,6 @@ p {
 
 .assignmentName {
     flex: 50%;
-    width: 100%;
     float: left;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -100,12 +125,16 @@ p {
     background-color: rgba(255, 223, 185, 0);
 }
 
-#grades {
-    background-color: rgb(255, 223, 185);
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    padding: 5px;
+#gradesWrapper {
     margin-left: 10px;
     flex: 20%;
+}
+
+#grades {
+    background-color: rgb(255, 223, 185);
+    border-radius: 10px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 5%;
+    padding: 5px 15px 5px 15px;
 }

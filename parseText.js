@@ -6,7 +6,11 @@ function parseText() {
     textSplit = textSplit.map(s => s.trim());
 
     // Remove everything before assignments
-    textSplit.splice(0, 3 + textSplit.indexOf("Show By"));
+    if (textSplit.some(l => {l.includes("SHOW BY TYPE")})) {
+        textSplit.splice(0, textSplit.findIndex(l => {l.contains("SHOW BY TYPE")}));
+    } else {
+        textSplit.splice(0, 3 + textSplit.indexOf("Show By"));
+    }
 
     // Create assignments
     this.assignments = new AssignmentList();
@@ -56,6 +60,9 @@ function parseText() {
 
     // Display assignments as HTML elements
     makeHTMLAssignments();
+
+    // Calculate grade
+    calculateGrade();
 
     document.getElementById("assignmentsObject").obj = assignments;
     document.getElementById("categoriesObject").obj = categories;
