@@ -3,6 +3,7 @@
 <head>
     <title>Canvas Grade Calculator</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="script.js"></script>
 
     <!-- FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Oxygen|Source+Code+Pro" rel="stylesheet">
@@ -22,8 +23,10 @@
                 <p>Go to the "Grades" page of your Canvas class, select everything and copy (Press <span class="keyboardshortcut">CTRL-A/&#8984-A</span> and then <span class="keyboardshortcut">CTRL-C/&#8984-C)</span>.</p>
 
                 <p>Then, paste the text into the text box below (Press <span class="keyboardshortcut">CTRL-V/&#8984-V</span>):</p>
-                
-                <textarea cols="2" rows="10" id="copypastefield"></textarea>
+                <form name="copypasteform" id="copypasteform">
+                    <textarea form="copypasteform" rows=20 cols=2 id="copypastefield"></textarea><br><br>
+                    <input onclick="parseText()" id="submitbutton" name="submitbutton" form="copypastefield" type="submit" text="Submit">
+                </form>
             </div>
         </div>
     </div>
