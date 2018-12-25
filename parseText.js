@@ -6,11 +6,11 @@ function parseText() {
     textSplit = textSplit.map(s => s.trim());
 
     // Remove everything before assignments
-    if (textSplit.some(l => {l.includes("SHOW BY TYPE")})) {
-        textSplit.splice(0, 1 + textSplit.findIndex(l => {l.contains("SHOW BY TYPE")}));
+    if (textSplit.some(l => {return l.includes("SHOW BY TYPE")})) {
+        textSplit.splice(0, 1 + textSplit.findIndex(l => {return l.includes("SHOW BY TYPE")}));
     } else {
         textSplit.splice(0, 3 + textSplit.indexOf("Show By"));
-    }
+    };
 
     // Create assignments
     this.assignments = new AssignmentList();
@@ -86,6 +86,7 @@ function parseScore(line) {
 }
 
 function parseCategory(line) {
+    console.log(line);
     var splitStr = line.split(' ');
     var percentIndex = splitStr.findIndex(s => s.includes("%"));
     var nameStr = splitStr.slice(0, percentIndex).join(" ");
