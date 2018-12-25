@@ -7,7 +7,7 @@ function parseText() {
 
     // Remove everything before assignments
     if (textSplit.some(l => {l.includes("SHOW BY TYPE")})) {
-        textSplit.splice(0, textSplit.findIndex(l => {l.contains("SHOW BY TYPE")}));
+        textSplit.splice(0, 1 + textSplit.findIndex(l => {l.contains("SHOW BY TYPE")}));
     } else {
         textSplit.splice(0, 3 + textSplit.indexOf("Show By"));
     }
