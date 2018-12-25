@@ -42,12 +42,10 @@ input[type='text'] {
     margin: 0px 30px;
 }
 
+/* #region          STEP 1 */
+
 #step1content, #step2content {
     margin-left: 25px;
-}
-
-#step2 {
-    display: none;
 }
 
 #copypastefield {
@@ -57,23 +55,22 @@ input[type='text'] {
             box-sizing: border-box;
 }
 
-#submitbutton {
+#submitbutton, #resetCalculator {
     border: none;
     border-radius: 5px;
     padding: 10px 15px 10px 15px;
     background-color: rgb(255, 174, 82);
     font-family: 'Oxygen', sans-serif;
 }
+/* #endregion*/
 
-#assignmentwrapper {
-    display: flex;
-    width: 100%;
+/* #region          STEP 2 */
+#step2 {
+    display: none;
 }
+/* #endregion */
 
-#assignmentList {
-    flex: 65%;
-    margin-right:10px;
-}
+/* #region          CATEGORIES */
 
 .category {
     border-radius: 10px;
@@ -141,6 +138,19 @@ input[type='text'] {
     overflow: hidden;
 }
 
+/* #endregion */
+
+/* #region          ASSIGNMENTS*/
+
+#assignmentwrapper {
+    display: flex;
+    width: 100%;
+}
+
+#assignmentList {
+    flex: 65%;
+    margin-right:10px;
+}
 .assignment {
     display: flex;
     margin: 5px 20px 5px 10px;
@@ -169,6 +179,25 @@ input[type='text'] {
     text-align: center;
     background-color: rgba(255, 223, 185, 0);
 }
+
+/* #endregion */
+
+/* #region          GRADE/WEIGHT SIDEBAR*/
+
+.sidebarSticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 5%;
+}
+
+#grades, #weights {
+    margin: 5px 0px;
+    background-color: rgb(255, 223, 185);
+    border-radius: 10px;
+    padding: 5px 15px 5px 15px;
+}
+
+/* #region          WEIGHTS */
 
 .weightPercentInput[type='text'] {
     width: 30px;
@@ -199,20 +228,15 @@ input[type='text'] {
     margin-left: 10px;
 }
 
+/* #endregion WEIGHTS */
+
+/* #region          GRADES*/
+
 #gradesWrapper {
     margin-left: 10px;
     flex: 20%;
 }
 
-#grades, #weights {
-    margin: 5px 0px;
-    background-color: rgb(255, 223, 185);
-    border-radius: 10px;
-    padding: 5px 15px 5px 15px;
-}
+/* #endregion GRADES*/
 
-.sticky {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 5%;
-}
+/* #endregion GRADE/WEIGHT SIDEBAR*/
