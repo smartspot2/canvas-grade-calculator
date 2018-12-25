@@ -60,6 +60,7 @@ function parseText() {
 
     // Display assignments as HTML elements
     makeHTMLAssignments();
+    makeHTMLWeights();
 
     // Calculate grade
     calculateGrade();

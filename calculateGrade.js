@@ -8,6 +8,7 @@
 
 function calculateGrade() {
     var curGrade = 0;
+    var totalWeights = 0;
 
     this.categories.arr.forEach(cat => {
         let curWeight = cat.weight;
@@ -24,10 +25,13 @@ function calculateGrade() {
             var catGrade = (curTotalGotten/curTotalPossible);
             updateCatGrade(cat, catGrade, curTotalGotten, curTotalPossible);
             curGrade += catGrade * curWeight;
+            totalWeights += curWeight;
         } else {
             updateCatGrade(cat, null);
         }
     });
+
+    curGrade /= totalWeights;
 
     var totalGradeHTML = document.getElementById("totalGrade");
     totalGradeHTML.innerText = Math.round(curGrade*10000)/100 + "%"

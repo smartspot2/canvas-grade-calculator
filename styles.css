@@ -20,6 +20,12 @@ p {
     font-size: 15pt;
 }
 
+input[type='text'] {
+    font-family: 'Garamond', serif;
+    font-weight: normal;
+    font-size: 1em;
+}
+
 .keyboardshortcut {
     background-color: #f0f0f0;
     font-family: 'Source Code Pro', monospace;
@@ -77,12 +83,18 @@ p {
 }
 
 .categoryHeader {
+    width: 100%;
+    border-style: none;
+    border-radius: 10px;
+    background-color: rgb(255, 223, 185);
+    position: sticky;
+    top: 0%;
     display: flex;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
-h3.categoryName {
+.categoryName {
     font-family: 'Oxygen', sans-serif;
 
     display: inline-block;
@@ -97,7 +109,7 @@ h3.categoryName {
     /* margin: auto; */
 }
 
-p.categoryGrade {
+.categoryGrade {
     margin-bottom: 0px;
     margin-top: 0px;
     flex: 10%;
@@ -112,12 +124,15 @@ p.categoryGrade {
     color: rgb(95, 95, 95);
 }
 
-button.categoryCollapse {
+.categoryCollapse {
+    display: block;
     flex: 3%;
     width: 90%;
+    height: 100%;
+    margin: auto;
     margin-right: 10px;
     background-color: rgba(0, 0, 0, 0);
-    border: none;
+    text-align: left;
 }
 
 .categoryContent {
@@ -155,16 +170,49 @@ button.categoryCollapse {
     background-color: rgba(255, 223, 185, 0);
 }
 
+.weightPercentInput[type='text'] {
+    width: 30px;
+    height: 100%;
+    border-style: none;
+    border-radius: 4px;
+    text-align: center;
+    background-color: rgba(255, 223, 185, 0);
+}
+
+.weightPercent {
+    flex: 25%;
+    width: 100%;
+    text-align: right;
+}
+
+.weightName {
+    width: 100%;
+    flex: 75%;
+}
+
+.weightItem {
+    width: 100%;
+    display: flex;
+}
+
+#weightList {
+    margin-left: 10px;
+}
+
 #gradesWrapper {
     margin-left: 10px;
     flex: 20%;
 }
 
-#grades {
+#grades, #weights {
+    margin: 5px 0px;
     background-color: rgb(255, 223, 185);
     border-radius: 10px;
+    padding: 5px 15px 5px 15px;
+}
+
+.sticky {
     position: -webkit-sticky;
     position: sticky;
     top: 5%;
-    padding: 5px 15px 5px 15px;
 }

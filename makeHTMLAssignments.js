@@ -16,6 +16,23 @@ function makeHTMLAssignments() {
     });
 }
 
+function makeHTMLWeights() {
+    var weightsDiv = document.getElementById("weightList");
+
+    this.categories.arr.forEach(cat => {
+        var name = cat.name;
+        var percentage = weights[cat.name];
+
+        var curWeight = document.createElement("p");
+        curWeight.innerHTML = ["<span class='weightName'>", name,
+                               "</span><span class='weightPercent'><input type='text' class='weightPercentInput' value='",
+                                Math.round(percentage*10000)/100,
+                                "'>%</span>"].join('');
+        curWeight.className = "weightItem";
+        weightsDiv.appendChild(curWeight);
+    });
+}
+
 function createCategory(cat) {
     var curCategory = document.createElement("div");
     curCategory.className = "category";
@@ -23,9 +40,12 @@ function createCategory(cat) {
 
     var catHeader = document.createElement("div");
     catHeader.className = "categoryHeader";
+    catHeader.id = "bn2" + cat.id;
+    catHeader.addEventListener("click", function(event) {
+        collapseCategory(this.id);
+    })
     
-    var catCollapse = document.createElement("button");
-    catCollapse.setAttribute("onClick", "collapseCategory(this.id);");
+    var catCollapse = document.createElement("div");
     catCollapse.className = "categoryCollapse";
     catCollapse.id = "btn" + cat.id;
     catCollapse.innerHTML = "&#9658";
@@ -59,9 +79,9 @@ function createAssignment(asgnmt) {
     var asgnmtScore = document.createElement("form");
     asgnmtScore.className = "assignmentScore";
     var scoreTextContainer = document.createElement("div");
-    scoreTextContainer.innerHTML = ["Score: <input class='assignmentScoreGotten' value='",
+    scoreTextContainer.innerHTML = ["Score: <input type='text' class='assignmentScoreGotten' value='",
                               asgnmt.score[0],
-                              "'> / <input class='assignmentScorePossible' value='",
+                              "'> / <input type='text' class='assignmentScorePossible' value='",
                               asgnmt.score[1],
                               "'>"].join('');
     asgnmtScore.appendChild(scoreTextContainer);
