@@ -3,12 +3,27 @@
 <head>
     <title>Canvas Grade Calculator</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <!--
+        TODO:
+            Add error handling for submitted text
+            Update grade as user edits fields
+            Make site look pretty
+    -->
+
+    <!-- LIBRARIES -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+            crossorigin="anonymous"></script>
+
+    <!-- JS LINKS -->
     <script src="init.js"></script>
     <script src="assignmentObjects.js"></script>
     <script src="makeHTMLAssignments.js"></script>
     <script src="parseText.js"></script>
     <script src="calculateGrade.js"></script>
     <script src="updateAssignments.js"></script>
+    <script src="collapseCategory.js"></script>
 
     <!-- FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Oxygen|Source+Code+Pro" rel="stylesheet">
@@ -48,30 +63,33 @@
 
                 <div id="assignmentwrapper">
                     <div id="assignmentList">
-                        <div class="category">
+                        <!-- <div class="category">
                             <div class="categoryHeader">
                                 <h3 class="categoryName">Category Name</h3>
                                 <p class="categoryGrade">Grade</p>
+                                <button class="collapseCategory" id="btncategoryID"></button>
                             </div>
 
-                            <div class="assignment">
-                                <div class="assignmentName">
-                                    <h4>Assignment 1</h4>
+                            <div class="categoryContent">
+                                <div class="assignment">
+                                    <div class="assignmentName">
+                                        <h4>Assignment 1</h4>
+                                    </div>
+                                    <div class="assignmentScore">
+                                        <form>
+                                            Score: <input class="assignmentScoreGotten"> / <input class="assignmentScorePossible">
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="assignmentScore">
-                                    <form>
+                                
+                                <div class="assignment">
+                                    <h4 class="assignmentName">Assignment 2</h4>
+                                    <form class="assignmentScore">
                                         Score: <input class="assignmentScoreGotten"> / <input class="assignmentScorePossible">
                                     </form>
                                 </div>
                             </div>
-                            
-                            <div class="assignment">
-                                <h4 class="assignmentName">Assignment 2</h4>
-                                <form class="assignmentScore">
-                                    Score: <input class="assignmentScoreGotten"> / <input class="assignmentScorePossible">
-                                </form>
-                            </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div id="gradesWrapper">
                         <div id="grades">
@@ -80,6 +98,8 @@
                     </div>
                 </div>
             </div>
+
+            <button id="reloadPage" onClick="resetPage();">Reset</button>
         </div>
     </div>
 </body>

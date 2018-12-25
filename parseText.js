@@ -64,9 +64,9 @@ function parseText() {
     // Calculate grade
     calculateGrade();
 
-    document.getElementById("assignmentsObject").obj = assignments;
-    document.getElementById("categoriesObject").obj = categories;
-    document.getElementById("weightsObject").obj = weights;
+    // Uncollapse step 2 and collapse step 1
+    $("#step1").hide();
+    $("#step2").show();
 }
 
 function parseScore(line) {

@@ -1,8 +1,8 @@
-/* * {
+ /* * {
     border-width: 1px;
     border-style: solid;
     border-color: black;
-} */
+}  */
 
 
 body {
@@ -40,6 +40,10 @@ p {
     margin-left: 25px;
 }
 
+#step2 {
+    display: none;
+}
+
 #copypastefield {
     width: 90%;
     -webkit-box-sizing: border-box;
@@ -74,16 +78,28 @@ p {
 
 .categoryHeader {
     display: flex;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 h3.categoryName {
-    flex: 90%;
-    float: left;
+    font-family: 'Oxygen', sans-serif;
+
+    display: inline-block;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    margin-right: 5px;
+    height: 100%;
+    flex: 80%;
     text-align: left;
+    vertical-align: middle;
+    margin:auto;
     /* margin: auto; */
 }
 
 p.categoryGrade {
+    margin-bottom: 0px;
+    margin-top: 0px;
     flex: 10%;
     float: right;
     text-align: right;
@@ -94,6 +110,20 @@ p.categoryGrade {
     font-size: 0.8em;
     font-weight: 100;
     color: rgb(95, 95, 95);
+}
+
+button.categoryCollapse {
+    flex: 3%;
+    width: 90%;
+    margin-right: 10px;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
+
+.categoryContent {
+    transition: max-height 0.4s ease-out;
+    max-height: 0;
+    overflow: hidden;
 }
 
 .assignment {

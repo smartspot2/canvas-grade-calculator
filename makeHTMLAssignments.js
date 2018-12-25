@@ -3,10 +3,15 @@ function makeHTMLAssignments() {
 
     categories.arr.forEach(cat => {
         var curCategory = createCategory(cat);
+        var catContent = document.createElement("div");
+        catContent.className = "categoryContent";
+
         cat.assignments.forEach(asgnmt => {
             var curAssignment = createAssignment(asgnmt);
-            curCategory.appendChild(curAssignment);
+            catContent.appendChild(curAssignment);
         });
+        
+        curCategory.appendChild(catContent);
         assignmentDiv.appendChild(curCategory);
     });
 }
@@ -19,6 +24,13 @@ function createCategory(cat) {
     var catHeader = document.createElement("div");
     catHeader.className = "categoryHeader";
     
+    var catCollapse = document.createElement("button");
+    catCollapse.setAttribute("onClick", "collapseCategory(this.id);");
+    catCollapse.className = "categoryCollapse";
+    catCollapse.id = "btn" + cat.id;
+    catCollapse.innerHTML = "&#9658";
+    catHeader.appendChild(catCollapse);
+
     var catName = document.createElement("h3");
     catName.className = "categoryName";
     catName.innerHTML = cat.name + " <span class='categoryPercentage'>(" + cat.weight*100 + "%)</span>";

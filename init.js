@@ -8,3 +8,6 @@ String.prototype.hashCode = function () {
     }
     return hash;
 };
+
+
+$("step2").hide();
