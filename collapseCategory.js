@@ -20,4 +20,5 @@ function resetPage() {
     $("#step1").show();
     $("#step2").hide();
     $("#assignmentList").empty();
+    $("#weightList").empty();
 }
