@@ -89,8 +89,3 @@ function createAssignment(asgnmt) {
 
     return curAssignment;
 }
-
-
-function printObject() {
-    console.log(this.assignments);
-}
