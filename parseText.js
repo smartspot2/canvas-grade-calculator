@@ -5,6 +5,16 @@ function parseText() {
     var textSplit = text.split('\n');
     textSplit = textSplit.map(s => s.trim());
 
+    // Check for miscopied text; alert and don't proceed if incorrect copy-paste
+
+    if (textSplit.includes("Name	Due	Status	Score	Out of	Details	Submission Progress Status")) {
+        alert("You have copied the wrong page; please copy-paste the 'Assignments' page in Canvas.");
+        return;
+    } else if (textSplit.includes("Undated Assignments") || textSplit.includes("Past Assignments")) {
+        alert("You have copied the assignments sorted by date. Please click on 'SHOW BY TYPE' in the top-right corner of the assignments page and try again.");;
+        return;
+    }
+
     // Remove everything before assignments
     if (textSplit.some(l => {return l.includes("SHOW BY TYPE")})) {
         textSplit.splice(0, 1 + textSplit.findIndex(l => {return l.includes("SHOW BY TYPE")}));
@@ -86,7 +96,6 @@ function parseScore(line) {
 }
 
 function parseCategory(line) {
-    console.log(line);
     var splitStr = line.split(' ');
     var percentIndex = splitStr.findIndex(s => s.includes("%"));
     var nameStr = splitStr.slice(0, percentIndex).join(" ");

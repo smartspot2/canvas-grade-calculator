@@ -9,5 +9,14 @@ String.prototype.hashCode = function () {
     return hash;
 };
 
+$.fn.extend({
+    trackChanges: function () {
+        $(document).on('change', $(this).find(':input'), function (e) {
+            var el = e.target;
+            updateAssignments(el);
+        })
+    }
+   });
 
 $("step2").hide();
+$()

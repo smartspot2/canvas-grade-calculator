@@ -4,6 +4,8 @@ class Assignment {
         this.due = "";
         this.score = [];
         this.category = "";
+        this.id = String(this.name.hashCode()) + String(Math.floor(Math.random()*10));
+        this.id = this.id.replace(/[-\.]/g, '');
     }
 }
 

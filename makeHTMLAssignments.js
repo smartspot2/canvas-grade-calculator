@@ -14,6 +14,9 @@ function makeHTMLAssignments() {
         curCategory.appendChild(catContent);
         assignmentDiv.appendChild(curCategory);
     });
+
+    // Track changes in form
+    $("#SCORES").trackChanges();
 }
 
 function makeHTMLWeights() {
@@ -67,22 +70,28 @@ function createCategory(cat) {
 }
 
 function createAssignment(asgnmt) {
-    var curAssignment = document.createElement("div");
+    let curAssignment = document.createElement("div");
     curAssignment.className = "assignment";
 
     // Name of assignment
-    var asgnmtName = document.createElement("h4");
+    let asgnmtName = document.createElement("h4");
     asgnmtName.className = "assignmentName";
     asgnmtName.innerText = asgnmt.name;
     curAssignment.appendChild(asgnmtName);
 
-    var asgnmtScore = document.createElement("form");
+    // Scores
+    let asgnmtScore = document.createElement("div");
     asgnmtScore.className = "assignmentScore";
-    var scoreTextContainer = document.createElement("div");
-    scoreTextContainer.innerHTML = ["Score: <input type='text' class='assignmentScoreGotten' value='",
-                              asgnmt.score[0],
-                              "'> / <input type='text' class='assignmentScorePossible' value='",
-                              asgnmt.score[1],
+
+    let scoreTextContainer = document.createElement("div");
+
+    // Create HTML inputs
+    scoreTextContainer.innerHTML = ["Score: <input form='SCORES' type='text' class='assignmentScoreGotten' ",
+                              "id='gotten-", asgnmt.id,
+                              "' value='", asgnmt.score[0],
+                              "'> / <input form='SCORES' type='text' class='assignmentScorePossible' ",
+                              "id='possible-", asgnmt.id,
+                              "' value='", asgnmt.score[1],
                               "'>"].join('');
     asgnmtScore.appendChild(scoreTextContainer);
     curAssignment.appendChild(asgnmtScore);
