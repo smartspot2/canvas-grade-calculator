@@ -16,7 +16,8 @@ function makeHTMLAssignments() {
     });
 
     // Track changes in form
-    $("#SCORES").trackChanges();
+    $("#SCOREFORM").trackChanges();
+    $("#WEIGHTFORM").trackChanges();
 }
 
 function makeHTMLWeights() {
@@ -28,7 +29,9 @@ function makeHTMLWeights() {
 
         var curWeight = document.createElement("p");
         curWeight.innerHTML = ["<span class='weightName'>", name,
-                               "</span><span class='weightPercent'><input type='text' class='weightPercentInput' value='",
+                               "</span><span class='weightPercent'><input form='WEIGHTFORM' type='text' class='weightPercentInput' ",
+                               "id='", cat.id,
+                               "' value='",
                                 Math.round(percentage*10000)/100,
                                 "'>%</span>"].join('');
         curWeight.className = "weightItem";
@@ -86,10 +89,10 @@ function createAssignment(asgnmt) {
     let scoreTextContainer = document.createElement("div");
 
     // Create HTML inputs
-    scoreTextContainer.innerHTML = ["Score: <input form='SCORES' type='text' class='assignmentScoreGotten' ",
+    scoreTextContainer.innerHTML = ["Score: <input form='SCOREFORM' type='text' class='assignmentScoreGotten' ",
                               "id='gotten-", asgnmt.id,
                               "' value='", asgnmt.score[0],
-                              "'> / <input form='SCORES' type='text' class='assignmentScorePossible' ",
+                              "'> / <input form='SCOREFORM' type='text' class='assignmentScorePossible' ",
                               "id='possible-", asgnmt.id,
                               "' value='", asgnmt.score[1],
                               "'>"].join('');
