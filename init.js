@@ -13,10 +13,13 @@ $.fn.extend({
     trackChanges: function () {
         $(document).on('change', $(this).find(':input'), function (e) {
             var el = e.target;
-            updateAssignments(el);
+            if (el.className == "assignmentScoreGotten" || el.className == "assignmentScorePossible") {
+                updateAssignments(el);
+            } else if (el.className == "weightPercentInput") {
+                updateWeights(el);
+            }
         })
     }
    });
 
 $("step2").hide();
-$()
