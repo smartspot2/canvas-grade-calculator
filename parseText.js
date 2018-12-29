@@ -13,14 +13,20 @@ function parseText() {
     } else if (textSplit.includes("Undated Assignments") || textSplit.includes("Past Assignments")) {
         alert("You have copied the assignments sorted by date. Please click on 'SHOW BY TYPE' in the top-right corner of the assignments page and try again.");;
         return;
+    } else if (textSplit.length == 1 && textSplit[0] == '') {
+        alert("Please paste something in the text area.");
+        return;
     }
 
     // Remove everything before assignments
     if (textSplit.some(l => {return l.includes("SHOW BY TYPE")})) {
         textSplit.splice(0, 1 + textSplit.findIndex(l => {return l.includes("SHOW BY TYPE")}));
-    } else {
+    } else if (textSplit.includes("Show By")) {
         textSplit.splice(0, 3 + textSplit.indexOf("Show By"));
-    };
+    } else {
+        alert("Invalid text pasted. Please try again and make sure you are copy-pasting everything on the 'Assignments' page in Canvas.")
+        return;
+    }
 
     // Create assignments
     this.assignments = new AssignmentList();

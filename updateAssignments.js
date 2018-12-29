@@ -48,7 +48,8 @@ function updateWeights(inputElement) {
 }
 
 function updateAssignmentName(inputElement) {
-    let inputID = inputElement.id.slice(5);
+    let parentAsgnmtDiv = inputElement.parentElement;
+    let inputID = parentAsgnmtDiv.id;
 
     // Get matching assignment
     let curAsgnmt = assignments.arr.find(asgnmt => {return asgnmt.id == inputID});

@@ -10,8 +10,6 @@
                 - Add more error handling
             - Make site look pretty
             - Have option to revert changes
-            - * Allow user to add & remove assignments
-            - * Allow user to add & remove categories
 
             [Maybe?]
             - Allow user to download changes as txt file (or another type of file)
@@ -48,13 +46,12 @@
                 <h2> Step 1: Copy-paste your assignments from Canvas</h2>
             </div>
             <div id="step1content">
-                <p>Go to the "Assignments" page of your Canvas class. Make sure that in the top right, "SHOW BY TYPE" is selected. Now, select everything and copy (Press <span class="keyboardshortcut">CTRL-A/&#8984-A</span> and then <span class="keyboardshortcut">CTRL-C/&#8984-C</span>).</p>
+                <p>Go to the "Assignments" page of your Canvas class. Make sure that in the top right, "SHOW BY TYPE" is selected. Now, select everything and copy (Press <span class="keyboardshortcut">CTRL-A/&#8984-A</span> and then <span class="keyboardshortcut">CTRL-C/&#8984-C</span>). Then, paste the text into the text box below (Press <span class="keyboardshortcut">CTRL-V/&#8984-V</span>).</p>
 
-                <p>Then, paste the text into the text box below (Press <span class="keyboardshortcut">CTRL-V/&#8984-V</span>):</p>
-                <form name="copypasteform" id="copypasteform">
-                    <textarea form="copypasteform" rows=20 cols=2 id="copypastefield"></textarea><br><br>
-                    <input onclick="parseText()" id="submitbutton" name="submitbutton" form="copypastefield" type="submit" text="Submit">
-                </form>
+                <p>On iOS, go to the "Assignments" page of the Canvas class on the canvas website (not the app). Scroll all the way down and press and hold on the last bit of text on the bottom right, until you see blue highlighting. Drag the blue handlebar to the very top left of the page, selecting all of the text on the page. Now, just copy and paste the text into the text box below.</p>
+
+                <textarea rows=20 cols=2 id="copypastefield"></textarea><br><br>
+                <button onclick="parseText()" id="submitbutton">Submit</button>
             </div>
         </div>
 
@@ -86,7 +83,7 @@
                 </div>
             </div>
             <br>
-            <button id="resetCalculator" onClick="resetPage();">Reset</button>
+            <button id="resetCalculator" onClick="resetPage();">Back</button>
         </div>
     </div>
 </body>
