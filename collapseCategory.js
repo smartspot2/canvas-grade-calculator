@@ -1,9 +1,9 @@
 function collapseCategory(catID) {
-    var cat = document.getElementById(catID.slice(3));
-    var btn = cat.children[0].children[0];
+    let cat = document.getElementById(catID.slice(3));
+    let btn = cat.children[0].children[0];
 
-    for (var i = 0; i < cat.children.length; i++) {
-        var element = cat.children[i];
+    for (let i = 0; i < cat.children.length; i++) {
+        let element = cat.children[i];
         if (element.className == "categoryContent") {
             if (element.style.maxHeight) {
                 element.style.maxHeight = null;

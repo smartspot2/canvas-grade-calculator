@@ -12,6 +12,10 @@ function updateAssignments(inputElement) {
 
     // Update assignment score
     let newScore = parseFloat(inputElement.value);
+    if (isNaN(newScore)) {
+        newScore = null;
+    }
+
     if (inputType == 'gotten') {
         asgnmt.score[0] = newScore;
     } else {
@@ -41,4 +45,12 @@ function updateWeights(inputElement) {
 
     // Recalculate the grade
     calculateGrade();
+}
+
+function updateAssignmentName(inputElement) {
+    let inputID = inputElement.id.slice(5);
+
+    // Get matching assignment
+    let curAsgnmt = assignments.arr.find(asgnmt => {return asgnmt.id == inputID});
+    curAsgnmt.name = inputElement.value;
 }

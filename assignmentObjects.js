@@ -2,9 +2,9 @@ class Assignment {
     constructor(name) {
         this.name = name;
         this.due = "";
-        this.score = [];
+        this.score = [null, null];
         this.category = "";
-        this.id = String(this.name.hashCode()) + String(Math.floor(Math.random()*10));
+        this.id = String(this.name.hashCode()) + String(Math.random()*10);
         this.id = this.id.replace(/[-\.]/g, '');
     }
 }

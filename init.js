@@ -1,5 +1,5 @@
 String.prototype.hashCode = function () {
-    var hash = 0, i, chr;
+    let hash = 0, i, chr;
     if (this.length === 0) return hash;
     for (i = 0; i < this.length; i++) {
         chr = this.charCodeAt(i);
@@ -11,15 +11,19 @@ String.prototype.hashCode = function () {
 
 $.fn.extend({
     trackChanges: function () {
-        $(document).on('change', $(this).find(':input'), function (e) {
-            var el = e.target;
-            if (el.className == "assignmentScoreGotten" || el.className == "assignmentScorePossible") {
-                updateAssignments(el);
-            } else if (el.className == "weightPercentInput") {
-                updateWeights(el);
-            }
-        })
+        this.each(function() {
+            $(this).on('change', function (e) {
+                let el = e.target;
+                if (el.className == "assignmentScoreGotten" || el.className == "assignmentScorePossible") {
+                    updateAssignments(el);
+                } else if (el.className == "weightPercentInput") {
+                    updateWeights(el);
+                } else if (el.className == "assignmentName") {
+                    updateAssignmentName(el);
+                }
+            })
+        });
     }
-   });
+});
 
 $("step2").hide();

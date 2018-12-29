@@ -1,8 +1,8 @@
 function parseText() {
-    var text = document.getElementById("copypastefield").value;
+    let text = document.getElementById("copypastefield").value;
 
     // Split every line
-    var textSplit = text.split('\n');
+    let textSplit = text.split('\n');
     textSplit = textSplit.map(s => s.trim());
 
     // Check for miscopied text; alert and don't proceed if incorrect copy-paste
@@ -26,19 +26,19 @@ function parseText() {
     this.assignments = new AssignmentList();
     this.categories = new CategoryList();
 
-    var lastAssignment = "";
-    var lastCategory = "";
+    let lastAssignment = "";
+    let lastCategory = "";
     textSplit.forEach(line => {
         if (lastCategory == "" || line.includes("% of Total")) {
             // Should only occur at the beginning of the loop
-            var category = parseCategory(line);
-            var catObj = new Category(category.name, category.weight);
+            let category = parseCategory(line);
+            let catObj = new Category(category.name, category.weight);
             categories.add(catObj);
             lastCategory = catObj;
         } else if (line.includes('Due')) {  // Due Date
             curAsgnmt = assignments.find(lastAssignment);
             if (line.includes('pts')) { // Due date and points on same line
-                var lineSplit = line.split(" ");
+                let lineSplit = line.split(" ");
                 let ptsIndex = lineSplit.indexOf("pts");
                 
                 dueStr = lineSplit.slice(0, ptsIndex-1).join(' ');
@@ -53,7 +53,7 @@ function parseText() {
         } else if (isAssignmentTag(line)) { // Tag
             assignments.find(lastAssignment).tag = line;
         } else {                            // Assignment Name
-            var curAssignment = new Assignment(line);
+            let curAssignment = new Assignment(line);
             assignments.add(curAssignment);
             curAssignment.category = lastCategory.name;
             lastCategory.add(curAssignment);
@@ -96,10 +96,10 @@ function parseScore(line) {
 }
 
 function parseCategory(line) {
-    var splitStr = line.split(' ');
-    var percentIndex = splitStr.findIndex(s => s.includes("%"));
-    var nameStr = splitStr.slice(0, percentIndex).join(" ");
-    var percent = splitStr[percentIndex];
+    let splitStr = line.split(' ');
+    let percentIndex = splitStr.findIndex(s => s.includes("%"));
+    let nameStr = splitStr.slice(0, percentIndex).join(" ");
+    let percent = splitStr[percentIndex];
     // Get only number
     percent = parseFloat(percent.substr(0, percent.length-1))*0.01;
     return {name: nameStr, weight: percent};

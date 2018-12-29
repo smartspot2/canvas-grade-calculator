@@ -89,6 +89,7 @@ input[type='text'] {
     display: flex;
     padding-top: 5px;
     padding-bottom: 5px;
+    cursor: pointer;
 }
 
 .categoryName {
@@ -158,6 +159,7 @@ input[type='text'] {
     margin: 5px 20px 5px 10px;
     padding: 5px 5px 5px 10px;
     background-color: rgba(255, 255, 255, 0.185);
+    border-radius: 5px;
 }
 
 .assignmentName {
@@ -165,6 +167,15 @@ input[type='text'] {
     float: left;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+input.assignmentName {
+    font-family: 'Oxygen', 'sans-serif';
+    font-weight: bold;
+    border-style: none;
+    border-radius: 4px;
+    text-align: left;
+    background-color: rgba(255, 223, 185, 0);
 }
 
 .assignmentScore {
@@ -180,6 +191,34 @@ input[type='text'] {
     border-radius: 4px;
     text-align: center;
     background-color: rgba(255, 223, 185, 0);
+}
+
+.createAssignment {
+    display: flex;
+    margin: 5px 20px 5px 10px;
+    padding: 5px 5px 5px 10px;
+    text-align: center;
+    float: center;
+}
+
+.createAssignment span {
+    padding: 10px;
+    margin: auto;
+    width: fit-content;
+    font-family: 'Oxygen', 'sans-serif';
+    font-weight: bold;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.178);
+    cursor: pointer;
+}
+
+.removeAssignment {
+    flex: 3%;
+    margin: auto;
+    vertical-align: middle;
+    font-size: 1.5em;
+    font-weight: 1000;
+    cursor: pointer;
 }
 
 /* #endregion */

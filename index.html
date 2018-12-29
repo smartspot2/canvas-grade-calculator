@@ -31,6 +31,7 @@
     <script src="calculateGrade.js"></script>
     <script src="updateAssignments.js"></script>
     <script src="collapseCategory.js"></script>
+    <script src="addAssignment.js"></script>
 
     <!-- FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Oxygen|Source+Code+Pro" rel="stylesheet">
@@ -64,40 +65,12 @@
             <div id="step2content">
                 <p>Your assignments and scores for each assignment are shown below. Change assignment scores and add assignments as you wish. The grade and totals will be calculated automatically.</p>
 
-                <script id="assignmentsObject"></script>
-                <script id="categoriesObject"></script>
-                <script id="weightsObject"></script>
+                <p>To create assignments, click on the "Add Assignment" button below all assignments in the category. You can now edit the name of the new assignment (by clicking on the name of the added assignment) and the new assignment's score.</p>
+
+                <p>To remove assignments, click on the "&#215" icon on the right hand side of the assignment.</p>
 
                 <div id="assignmentwrapper">
-                    <div id="assignmentList">
-                        <!-- <div class="category">
-                            <div class="categoryHeader">
-                                <h3 class="categoryName">Category Name</h3>
-                                <p class="categoryGrade">Grade</p>
-                                <button class="collapseCategory" id="btncategoryID"></button>
-                            </div>
-
-                            <div class="categoryContent">
-                                <div class="assignment">
-                                    <div class="assignmentName">
-                                        <h4>Assignment 1</h4>
-                                    </div>
-                                    <div class="assignmentScore">
-                                        <form>
-                                            Score: <input class="assignmentScoreGotten"> / <input class="assignmentScorePossible">
-                                        </form>
-                                    </div>
-                                </div>
-                                
-                                <div class="assignment">
-                                    <h4 class="assignmentName">Assignment 2</h4>
-                                    <form class="assignmentScore">
-                                        Score: <input class="assignmentScoreGotten"> / <input class="assignmentScorePossible">
-                                    </form>
-                                </div>
-                            </div>
-                        </div> -->
-                    </div>
+                    <div id="assignmentList"></div>
                     <div id="gradesWrapper">
                         <div class="sidebarSticky">
                             <div id="grades">
