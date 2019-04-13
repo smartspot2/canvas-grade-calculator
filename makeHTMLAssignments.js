@@ -1,7 +1,7 @@
 function makeHTMLAssignments() {
     let assignmentDiv = document.getElementById("assignmentList");
 
-    categories.arr.forEach(cat => {
+    this.categories.arr.forEach(cat => {
         let curCategory = createCategory(cat);
         let catContent = document.createElement("div");
         catContent.className = "categoryContent";
@@ -13,7 +13,7 @@ function makeHTMLAssignments() {
 
         // Add assignment button
         catContent.appendChild(createNewAssignmentBtn(cat));
-        
+
         curCategory.appendChild(catContent);
         assignmentDiv.appendChild(curCategory);
     });
@@ -28,15 +28,15 @@ function makeHTMLWeights() {
 
     this.categories.arr.forEach(cat => {
         let name = cat.name;
-        let percentage = weights[cat.name];
+        let percentage = this.weights[cat.name];
 
         let curWeight = document.createElement("p");
         curWeight.innerHTML = ["<span class='weightName'>", name,
-                               "</span><span class='weightPercent'><input form='WEIGHTFORM' type='text' class='weightPercentInput' ",
-                               "id='", cat.id,
-                               "' value='",
-                                Math.round(percentage*10000)/100,
-                                "'>%</span>"].join('');
+            "</span><span class='weightPercent'><input form='WEIGHTFORM' type='text' class='weightPercentInput' ",
+            "id='", cat.id,
+            "' value='",
+            Math.round(percentage * 10000) / 100,
+            "'>%</span>"].join('');
         curWeight.className = "weightItem";
         weightsDiv.appendChild(curWeight);
     });
@@ -53,10 +53,10 @@ function createCategory(cat) {
     let catHeader = document.createElement("div");
     catHeader.className = "categoryHeader";
     catHeader.id = "hed" + cat.id;
-    catHeader.addEventListener("click", function(event) {
+    catHeader.addEventListener("click", function () {
         collapseCategory(this.id);
-    })
-    
+    });
+
     let catCollapse = document.createElement("div");
     catCollapse.className = "categoryCollapse";
     catCollapse.id = "btn" + cat.id;
@@ -65,7 +65,7 @@ function createCategory(cat) {
 
     let catName = document.createElement("h3");
     catName.className = "categoryName";
-    catName.innerHTML = cat.name + " <span class='categoryPercentage'>(" + cat.weight*100 + "%)</span>";
+    catName.innerHTML = cat.name + " <span class='categoryPercentage'>(" + cat.weight * 100 + "%)</span>";
     catHeader.appendChild(catName);
 
     let catGrade = document.createElement("p");
@@ -97,12 +97,12 @@ function createAssignment(asgnmt) {
 
     // Create HTML inputs
     scoreTextContainer.innerHTML = ["Score: <input form='SCOREFORM' type='text' class='assignmentScoreGotten' ",
-                              "id='gotten-", asgnmt.id,
-                              "' value='", asgnmt.score[0],
-                              "'> / <input form='SCOREFORM' type='text' class='assignmentScorePossible' ",
-                              "id='possible-", asgnmt.id,
-                              "' value='", asgnmt.score[1],
-                              "'>"].join('');
+        "id='gotten-", asgnmt.id,
+        "' value='", asgnmt.score[0],
+        "'> / <input form='SCOREFORM' type='text' class='assignmentScorePossible' ",
+        "id='possible-", asgnmt.id,
+        "' value='", asgnmt.score[1],
+        "'>"].join('');
     asgnmtScore.appendChild(scoreTextContainer);
     curAssignment.appendChild(asgnmtScore);
 
@@ -110,22 +110,22 @@ function createAssignment(asgnmt) {
     let removeAsgnmtBtn = document.createElement("div");
     removeAsgnmtBtn.className = "removeAssignment";
     removeAsgnmtBtn.innerHTML = "&#215";
-    removeAsgnmtBtn.addEventListener("click", function (event) {
+    removeAsgnmtBtn.addEventListener("click", function () {
         removeAssignment(this);
-    })
+    });
     curAssignment.appendChild(removeAsgnmtBtn);
-    
+
     return curAssignment;
 }
 
-function createNewAssignmentBtn(cat) {
+function createNewAssignmentBtn() {
     let curAssignment = document.createElement("div");
     curAssignment.className = "createAssignment";
-    
+
     let asgnmtName = document.createElement("span");
     asgnmtName.className = "addAssignmentBtn";
     asgnmtName.innerHTML = "Add new assignment";
-    asgnmtName.addEventListener("click", function (event) {
+    asgnmtName.addEventListener("click", function () {
         addAssignment(this);
     });
 

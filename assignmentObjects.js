@@ -1,11 +1,11 @@
 class Assignment {
     constructor(name) {
         this.name = name;
-        this.due = "";
+        // this.due = "";
         this.score = [null, null];
         this.category = "";
-        this.id = String(this.name.hashCode()) + String(Math.random()*10);
-        this.id = this.id.replace(/[-\.]/g, '');
+        this.id = String(this.name.hashCode()) + String(Math.random() * 10);
+        this.id = this.id.replace(/[-.]/g, '');
     }
 }
 
@@ -21,9 +21,9 @@ class Category {
         this.assignments.push(asgnmt);
     }
 
-    find(name) {
-        return this.assignments.find(asgnmt => asgnmt.name == name);
-    }
+    // find(name) {
+    //     return this.assignments.find(asgnmt => asgnmt.name === name);
+    // }
 }
 
 class AssignmentList {
@@ -36,7 +36,7 @@ class AssignmentList {
     }
 
     find(name) {
-        return this.arr.find(asgnmt => asgnmt.name == name);
+        return this.arr.find(asgnmt => asgnmt.name === name);
     }
 }
 
@@ -49,9 +49,10 @@ class CategoryList {
         this.arr.push(cat)
     }
 
-    find(name) {
-        return this.arr.find(cat => cat.name == name);
-    }
+    // find(name) {
+    //     return this.arr.find(cat => cat.name === name);
+    // }
 }
 
-class WeightList {}
+class WeightList {
+}

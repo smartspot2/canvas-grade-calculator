@@ -11,14 +11,14 @@ String.prototype.hashCode = function () {
 
 $.fn.extend({
     trackChanges: function () {
-        this.each(function() {
+        this.each(function () {
             $(this).on('change', function (e) {
                 let el = e.target;
-                if (el.className == "assignmentScoreGotten" || el.className == "assignmentScorePossible") {
+                if (el.className === "assignmentScoreGotten" || el.className === "assignmentScorePossible") {
                     updateAssignments(el);
-                } else if (el.className == "weightPercentInput") {
+                } else if (el.className === "weightPercentInput") {
                     updateWeights(el);
-                } else if (el.className == "assignmentName") {
+                } else if (el.className === "assignmentName") {
                     updateAssignmentName(el);
                 }
             })

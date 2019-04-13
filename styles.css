@@ -1,7 +1,7 @@
- /* * {
-    border-width: 1px;
-    border-style: solid;
-    border-color: black;
+/* * {
+   border-width: 1px;
+   border-style: solid;
+   border-color: black;
 }  */
 
 
@@ -32,14 +32,14 @@ input[type='text'] {
 }
 
 #header {
-    padding: 25px 0px;
+    padding: 25px 0;
     text-align: center;
     border-radius: 5px;
     background-color: rgb(255, 152, 35);
 }
 
 #content {
-    margin: 0px 30px;
+    margin: 0 30px;
 }
 
 /* #region          STEP 1 */
@@ -54,8 +54,8 @@ input[type='text'] {
     font-weight: normal;
     font-size: 1em;
     -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 #submitbutton, #resetCalculator {
@@ -65,12 +65,14 @@ input[type='text'] {
     background-color: rgb(255, 174, 82);
     font-family: 'Oxygen', sans-serif;
 }
+
 /* #endregion*/
 
 /* #region          STEP 2 */
 #step2 {
     display: none;
 }
+
 /* #endregion */
 
 /* #region          CATEGORIES */
@@ -78,8 +80,8 @@ input[type='text'] {
 .category {
     border-radius: 10px;
     background-color: rgb(255, 223, 185);
-    padding: 15px 0px 25px 35px;
-    margin: 5px 0px;
+    padding: 15px 0 25px 35px;
+    margin: 5px 0;
 }
 
 .categoryHeader {
@@ -88,7 +90,7 @@ input[type='text'] {
     border-radius: 10px;
     background-color: rgb(255, 223, 185);
     position: sticky;
-    top: 0%;
+    top: 0;
     display: flex;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -99,25 +101,19 @@ input[type='text'] {
     font-family: 'Oxygen', sans-serif;
 
     display: inline-block;
-    margin-bottom: 0px;
-    margin-top: 0px;
-    margin-right: 15px;
     height: 100%;
     flex: 80%;
     text-align: left;
     vertical-align: middle;
-    margin:auto;
+    margin: auto;
     /* margin: auto; */
 }
 
 .categoryGrade {
-    margin-bottom: 0px;
-    margin-top: 0px;
     flex: 10%;
     float: right;
     text-align: right;
-    margin-right: 50px;
-    margin-left: 15px;
+    margin: 0 50px 0 15px;
     white-space: nowrap;
 }
 
@@ -132,8 +128,7 @@ input[type='text'] {
     flex: 3%;
     width: 90%;
     height: 100%;
-    margin: auto;
-    margin-right: 10px;
+    margin: auto 10px auto auto;
     background-color: rgba(0, 0, 0, 0);
     text-align: left;
 }
@@ -155,8 +150,9 @@ input[type='text'] {
 
 #assignmentList {
     flex: 65%;
-    margin-right:10px;
+    margin-right: 10px;
 }
+
 .assignment {
     display: flex;
     margin: 5px 20px 5px 10px;
@@ -186,6 +182,7 @@ input.assignmentName {
     margin: auto;
     vertical-align: middle;
     padding-left: 15px;
+    white-space: nowrap;
 }
 
 .assignmentScoreGotten, .assignmentScorePossible {
@@ -201,7 +198,6 @@ input.assignmentName {
     margin: 5px 20px 5px 10px;
     padding: 5px 5px 5px 10px;
     text-align: center;
-    float: center;
 }
 
 .createAssignment span {
@@ -218,9 +214,10 @@ input.assignmentName {
 .removeAssignment {
     flex: 3%;
     margin: auto;
+    padding: 3px;
     vertical-align: middle;
     font-size: 1.5em;
-    font-weight: 1000;
+    font-weight: 900;
     cursor: pointer;
 }
 
@@ -235,7 +232,7 @@ input.assignmentName {
 }
 
 #grades, #weights {
-    margin: 5px 0px;
+    margin: 5px 0;
     background-color: rgb(255, 223, 185);
     border-radius: 10px;
     padding: 5px 15px 5px 15px;

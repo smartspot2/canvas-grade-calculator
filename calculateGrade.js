@@ -21,8 +21,8 @@ function calculateGrade() {
             }
         });
 
-        if (curTotalPossible != 0) {
-            let catGrade = (curTotalGotten/curTotalPossible);
+        if (curTotalPossible !== 0) {
+            let catGrade = (curTotalGotten / curTotalPossible);
             updateCatGrade(cat, catGrade, curTotalGotten, curTotalPossible);
             curGrade += catGrade * curWeight;
             totalWeights += curWeight;
@@ -34,7 +34,7 @@ function calculateGrade() {
     curGrade /= totalWeights;
 
     let totalGradeHTML = document.getElementById("totalGrade");
-    totalGradeHTML.innerText = Math.round(curGrade*10000)/100 + "%"
+    totalGradeHTML.innerText = Math.round(curGrade * 10000) / 100 + "%"
 }
 
 
@@ -45,7 +45,7 @@ function updateCatGrade(cat, grade, pointsGotten, pointsPossible) {
     if (grade === null) {
         curCatGrade.innerText = "No grade";
     } else {
-        curCatGrade.innerHTML = Math.round(grade*10000)/100 + "%" + "<br><span class='categoryPercentage'>(" + pointsGotten + "/" + pointsPossible + ")</span>";
+        curCatGrade.innerHTML = Math.round(grade * 10000) / 100 + "%" + "<br><span class='categoryPercentage'>(" + pointsGotten + "/" + pointsPossible + ")</span>";
     }
 
 }

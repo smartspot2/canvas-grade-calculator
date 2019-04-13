@@ -2,7 +2,9 @@ function addAssignment(inputElement) {
     let curElement = inputElement.parentElement;
     let catID = curElement.parentElement.parentElement.id;
 
-    let curCat = categories.arr.find(cat => {return cat.id == catID});
+    let curCat = this.categories.arr.find(cat => {
+        return cat.id === catID
+    });
 
     let catContentHTML = curElement.parentElement;
 
@@ -16,14 +18,22 @@ function addAssignment(inputElement) {
 function removeAssignment(curElement) {
     let parentAsgnmt = curElement.parentElement;
 
-    let asgnmtObj = assignments.arr.find(asgnmt => {return asgnmt.id == parentAsgnmt.id});
+    let asgnmtObj = this.assignments.arr.find(asgnmt => {
+        return asgnmt.id === parentAsgnmt.id
+    });
 
-    let asgnmtIndex = assignments.arr.findIndex(asgnmt => {return asgnmt.id == parentAsgnmt.id});
-    let curCat = categories.arr.find(cat => {return cat.name == asgnmtObj.category})
-    let catIndex = curCat.assignments.findIndex(asgnmt => {return asgnmt.id == parentAsgnmt.id});
+    let asgnmtIndex = this.assignments.arr.findIndex(asgnmt => {
+        return asgnmt.id === parentAsgnmt.id
+    });
+    let curCat = this.categories.arr.find(cat => {
+        return cat.name === asgnmtObj.category
+    });
+    let catIndex = curCat.assignments.findIndex(asgnmt => {
+        return asgnmt.id === parentAsgnmt.id
+    });
 
-    assignments.arr.splice(asgnmtIndex, 1);
-    curCat.assignments.splice(catIndex, 1)
+    this.assignments.arr.splice(asgnmtIndex, 1);
+    curCat.assignments.splice(catIndex, 1);
     $(parentAsgnmt).remove();
 
     calculateGrade();
@@ -32,7 +42,7 @@ function removeAssignment(curElement) {
 function createBlankAssignment(cat) {
     let asgnmtObj = new Assignment("New Assignment");
     asgnmtObj.category = cat.name;
-    assignments.arr.push(asgnmtObj);
+    this.assignments.arr.push(asgnmtObj);
     cat.assignments.push(asgnmtObj);
 
     let curAssignment = document.createElement("div");
@@ -41,12 +51,12 @@ function createBlankAssignment(cat) {
 
     // Name of assignment
     let asgnmtName = document.createElement("input");
-    asgnmtName.form = "ASGNMTNAMEFORM";
+    // asgnmtName.form = "ASGNMTNAMEFORM";
     asgnmtName.type = "text";
     asgnmtName.className = "assignmentName";
     asgnmtName.value = "New Assignment";
     asgnmtName.id = `name-${asgnmtObj.id}`;
-    
+
     curAssignment.appendChild(asgnmtName);
     $(asgnmtName).trackChanges();
 
@@ -58,12 +68,12 @@ function createBlankAssignment(cat) {
 
     // Create HTML inputs
     scoreTextContainer.innerHTML = ["Score: <input form='SCOREFORM' type='text' class='assignmentScoreGotten' ",
-                              "id='gotten-", asgnmtObj.id,
-                              "' value='", null,
-                              "'> / <input form='SCOREFORM' type='text' class='assignmentScorePossible' ",
-                              "id='possible-", asgnmtObj.id,
-                              "' value='", null,
-                              "'>"].join('');
+        "id='gotten-", asgnmtObj.id,
+        "' value='", null,
+        "'> / <input form='SCOREFORM' type='text' class='assignmentScorePossible' ",
+        "id='possible-", asgnmtObj.id,
+        "' value='", null,
+        "'>"].join('');
     $(scoreTextContainer.children).trackChanges();
     asgnmtScore.appendChild(scoreTextContainer);
     curAssignment.appendChild(asgnmtScore);
@@ -72,9 +82,9 @@ function createBlankAssignment(cat) {
     let removeAsgnmtBtn = document.createElement("div");
     removeAsgnmtBtn.className = "removeAssignment";
     removeAsgnmtBtn.innerHTML = "&#215";
-    removeAsgnmtBtn.addEventListener("click", function (event) {
+    removeAsgnmtBtn.addEventListener("click", function () {
         removeAssignment(this);
-    })
+    });
     curAssignment.appendChild(removeAsgnmtBtn);
 
     return curAssignment;

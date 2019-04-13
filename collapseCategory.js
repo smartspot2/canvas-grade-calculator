@@ -4,7 +4,7 @@ function collapseCategory(catID) {
 
     for (let i = 0; i < cat.children.length; i++) {
         let element = cat.children[i];
-        if (element.className == "categoryContent") {
+        if (element.className === "categoryContent") {
             if (element.style.maxHeight) {
                 element.style.maxHeight = null;
                 btn.innerHTML = "&#9658";
