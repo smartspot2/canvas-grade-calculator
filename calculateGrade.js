@@ -7,6 +7,13 @@
 // Add all fractions together to get total grade
 
 function calculateGrade() {
+    let grade = getGradeValue();
+
+    let totalGradeHTML = document.getElementById("totalGrade");
+    totalGradeHTML.innerText = Math.round(grade * 10000) / 100 + "%"
+}
+
+function getGradeValue() {
     let curGrade = 0;
     let totalWeights = 0;
 
@@ -32,9 +39,7 @@ function calculateGrade() {
     });
 
     curGrade /= totalWeights;
-
-    let totalGradeHTML = document.getElementById("totalGrade");
-    totalGradeHTML.innerText = Math.round(curGrade * 10000) / 100 + "%"
+    return curGrade;
 }
 
 

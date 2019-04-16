@@ -1,8 +1,8 @@
-/* * {
-   border-width: 1px;
-   border-style: solid;
-   border-color: black;
-}  */
+/** {*/
+/*   border-width: 1px;*/
+/*   border-style: solid;*/
+/*   border-color: black;*/
+/*}*/
 
 
 body {
@@ -14,13 +14,13 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Oxygen', sans-serif;
 }
 
-p {
+p, label {
     font-family: 'Garamond', serif;
     font-weight: normal;
     font-size: 15pt;
 }
 
-input[type='text'] {
+input[type='text'], select {
     font-family: 'Garamond', serif;
     font-weight: normal;
     font-size: 1em;
@@ -42,7 +42,7 @@ input[type='text'] {
     margin: 0 30px;
 }
 
-/* #region          STEP 1 */
+/* region           STEP 1 */
 
 #step1content, #step2content {
     margin-left: 25px;
@@ -58,7 +58,7 @@ input[type='text'] {
     box-sizing: border-box;
 }
 
-#submitbutton, #resetCalculator {
+#submitbutton, #resetCalculator, #calcNeeded-submit {
     border: none;
     border-radius: 5px;
     padding: 10px 15px 10px 15px;
@@ -66,16 +66,21 @@ input[type='text'] {
     font-family: 'Oxygen', sans-serif;
 }
 
-/* #endregion*/
+#calcNeeded-submit {
+    padding: 5px 10px 10px 10px;
+    margin-bottom: 5px;
+}
 
-/* #region          STEP 2 */
+/* endregion*/
+
+/* region           STEP 2 */
 #step2 {
     display: none;
 }
 
-/* #endregion */
+/* endregion */
 
-/* #region          CATEGORIES */
+/* region           CATEGORIES */
 
 .category {
     border-radius: 10px;
@@ -139,9 +144,9 @@ input[type='text'] {
     overflow: hidden;
 }
 
-/* #endregion */
+/* endregion */
 
-/* #region          ASSIGNMENTS*/
+/* region           ASSIGNMENTS*/
 
 #assignmentwrapper {
     display: flex;
@@ -221,9 +226,9 @@ input.assignmentName {
     cursor: pointer;
 }
 
-/* #endregion */
+/* endregion */
 
-/* #region          GRADE/WEIGHT SIDEBAR*/
+/* region           GRADE/WEIGHT SIDEBAR */
 
 .sidebarSticky {
     position: -webkit-sticky;
@@ -231,14 +236,14 @@ input.assignmentName {
     top: 5%;
 }
 
-#grades, #weights {
+#grades, #weights, #calcNeeded {
     margin: 5px 0;
     background-color: rgb(255, 223, 185);
     border-radius: 10px;
-    padding: 5px 15px 5px 15px;
+    padding: 2px 15px 5px 15px;
 }
 
-/* #region          WEIGHTS */
+/* region           WEIGHTS */
 
 .weightPercentInput[type='text'] {
     width: 30px;
@@ -250,6 +255,7 @@ input.assignmentName {
 }
 
 .weightPercent {
+    margin-right: 5px;
     flex: 25%;
     width: 100%;
     text-align: right;
@@ -262,23 +268,85 @@ input.assignmentName {
 }
 
 .weightItem {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 0;
+    padding-bottom: 0;
     width: 100%;
     display: flex;
 }
 
 #weightList {
+    margin-top: 0;
+    margin-bottom: 10px;
     margin-left: 10px;
 }
 
-/* #endregion WEIGHTS */
+/* endregion WEIGHTS */
 
-/* #region          GRADES*/
+/* region           GRADES */
 
 #gradesWrapper {
     margin-left: 10px;
     flex: 30%;
 }
 
-/* #endregion GRADES*/
+/* endregion GRADES*/
 
-/* #endregion GRADE/WEIGHT SIDEBAR*/
+/* region           CALCULATE NEEDED */
+
+.calcNeededDiv {
+    /*display: flex;*/
+    margin-left: 10px;
+    margin-bottom: 10px;
+    padding: 3px;
+    white-space: nowrap;
+}
+
+.calcNeededLabel {
+    margin: 8px 0 8px 0;
+    width: 100%;
+    flex: 60%;
+}
+
+#calcNeeded-category {
+    /*width: 102%;*/
+}
+
+.calcNeededInput {
+    /*margin: 8px 0 8px 0;*/
+    /*width: 100%;*/
+    flex: 40%;
+    width: 75px;
+    height: 100%;
+    border-style: none;
+    border-radius: 4px;
+    text-align: left;
+    padding: 2px;
+    background-color: rgba(255, 255, 255, 0.2825);
+}
+
+.calcNeededInput::placeholder {
+    text-align: center;
+}
+
+#calcNeeded-result, #calcNeeded-resultPercent {
+    /*background-color: rgba(255, 255, 255, 0.2825);*/
+    font-family: 'Garamond', serif;
+    font-weight: bold;
+    padding: 2px;
+}
+
+#calcNeeded-resultParagraph {
+    margin-top: 1px;
+    margin-bottom: 1px;
+
+}
+
+/* endregion        CALCULATE NEEDED */
+
+.weightPercentInput[type='text'] {
+}
+
+
+/* endregion GRADE/WEIGHT SIDEBAR*/

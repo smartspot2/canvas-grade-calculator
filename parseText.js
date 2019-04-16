@@ -59,6 +59,7 @@ function parseText() {
             }
             curAsgnmt.due = line;
         } else if (line.includes('pts')) {  // Score
+            // TODO: see if there's a way to add a tag on items that aren't counted toward the final grade.
             this.assignments.find(lastAssignment).score = parseScore(line);
         } else if (isAssignmentTag(line)) { // Tag
             this.assignments.find(lastAssignment).tag = line;
@@ -88,6 +89,8 @@ function parseText() {
     // Uncollapse step 2 and collapse step 1
     $("#step1").hide();
     $("#step2").show();
+
+    Stretchy.resize(document.getElementById("calcNeeded-category"));
 }
 
 function parseScore(line) {

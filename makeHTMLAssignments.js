@@ -16,6 +16,11 @@ function makeHTMLAssignments() {
 
         curCategory.appendChild(catContent);
         assignmentDiv.appendChild(curCategory);
+
+        // Insert select dropdown option for each tag for calcNeeded
+        let newOptionElement = document.createElement("option");
+        newOptionElement.innerText = cat.name;
+        document.getElementById("calcNeeded-category").appendChild(newOptionElement);
     });
 
     // Track changes in form

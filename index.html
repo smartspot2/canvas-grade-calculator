@@ -20,6 +20,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
             crossorigin="anonymous"></script>
+    <script src="lib/stretchy.min.js" data-filter="#calcNeeded-category" async></script>
 
     <!-- JS LINKS -->
     <script src="init.js"></script>
@@ -30,6 +31,7 @@
     <script src="updateAssignments.js"></script>
     <script src="collapseCategory.js"></script>
     <script src="addAssignment.js"></script>
+    <script src="calculateNeededPercentage.js"></script>
 
     <!-- FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Oxygen|Source+Code+Pro" rel="stylesheet">
@@ -91,6 +93,35 @@
                         <div id="weights">
                             <h2>Weighting:</h2>
                             <form id="weightList"></form>
+                        </div>
+                        <div id="calcNeeded">
+                            <h2>Calculate points:</h2>
+                            <form id="calcNeededForm">
+                                <div id="calcNeededDiv-totalPoints" class="calcNeededDiv">
+                                    <label class="calcNeededLabel" for="calcNeeded-totalPoints">New Assignment
+                                        Points:</label>
+                                    <input id="calcNeeded-totalPoints" class="calcNeededInput" type="text"><br>
+                                </div>
+
+                                <div id="calcNeededDiv-targetScore" class="calcNeededDiv">
+                                    <label class="calcNeededLabel" for="calcNeeded-targetPercent">Target
+                                        Grade Percentage:</label>
+                                    <input id="calcNeeded-targetPercent" class="calcNeededInput" type="text">%<br>
+                                </div>
+
+                                <div id="calcNeededDiv-category" class="calcNeededDiv">
+                                    <label class="calcNeededLabel" for="calcNeeded-category">Category:</label>
+                                    <select id="calcNeeded-category" class="calcNeededInput"></select><br>
+                                </div>
+
+                                <div id="calcNeededDiv-result">
+                                    <p id="calcNeeded-resultParagraph" style="text-align: center;">Points needed: <span
+                                            id="calcNeeded-result">___</span> pts (<span id="calcNeeded-resultPercent">___</span>%)
+                                    </p>
+                                </div>
+                                <br>
+                            </form>
+                            <button id="calcNeeded-submit" onclick="parseNeededPercentageInput();">Calculate</button>
                         </div>
                     </div>
                 </div>
