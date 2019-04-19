@@ -1,0 +1,20 @@
+<div class="assignment" id="{{assignment.id}}"><h4
+    class="assignmentName">{{assignment.name}}</h4>
+    <div class="assignmentScore">
+        <div>Score:
+            <input #gottenPointsInput
+                   (blur)="updateGottenPoints(gottenPointsInput.value)"
+                   (keyup)="updateGottenPoints(gottenPointsInput.value)"
+                   class="assignmentScoreGotten"
+                   id="gotten-{{assignment.id}}"
+                   type="text"> /
+            <input #possiblePointsInput
+                   (blur)="updatePossiblePoints(possiblePointsInput.value)"
+                   (keyup)="updatePossiblePoints(possiblePointsInput.value)"
+                   class="assignmentScorePossible"
+                   id="possible-{{assignment.id}}"
+                   type="text">
+        </div>
+    </div>
+    <div class="removeAssignment">×</div>
+</div>
