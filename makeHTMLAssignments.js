@@ -1,6 +1,9 @@
 function makeHTMLAssignments() {
     let assignmentDiv = document.getElementById("assignmentList");
 
+    // Reset calcNeeded dropdown category options
+    document.getElementById("calcNeeded-category").innerHTML = "";
+
     this.categories.arr.forEach(cat => {
         let curCategory = createCategory(cat);
         let catContent = document.createElement("div");
