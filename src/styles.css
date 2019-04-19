@@ -74,9 +74,10 @@ input[type='text'], select {
 /* endregion*/
 
 /* region           STEP 2 */
-#step2 {
-    display: none;
-}
+
+/*#step2 {*/
+/*    display: none;                             <--------------------------------- UNCOMMENT*/
+/*}*/
 
 /* endregion */
 
