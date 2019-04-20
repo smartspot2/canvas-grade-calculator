@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Canvas-Grade-Calculator.iml" filepath="$PROJECT_DIR$/.idea/Canvas-Grade-Calculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/canvas-grade-calculator.iml" filepath="$PROJECT_DIR$/.idea/canvas-grade-calculator.iml" />
     </modules>
   </component>
 </project>

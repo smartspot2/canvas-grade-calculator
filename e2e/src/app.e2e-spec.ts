@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
     it('should display welcome message', () => {
         page.navigateTo();
-        expect(page.getTitleText()).toEqual('Welcome to Canvas-Grade-Calculator!');
+        expect(page.getTitleText()).toEqual('Welcome to canvas-grade-calculator!');
     });
 
     afterEach(async () => {
