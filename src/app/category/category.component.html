@@ -20,8 +20,8 @@
                         *ngFor="let assignment of category.assignments"
                         [assignment]="assignment"
                         [editableName]="assignment.editableName"></app-assignment>
-        <div (click)="addAssignment()" class="createAssignment">
-            <span class="addAssignmentBtn">
+        <div class="createAssignment">
+            <span (click)="addAssignment()" class="addAssignmentBtn">
                 Add new assignment
             </span>
         </div>
