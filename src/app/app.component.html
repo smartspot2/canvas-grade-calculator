@@ -1,0 +1,66 @@
+<div #step1Div id="step1">
+    <div id="step1head">
+        <h2> Step 1: Copy-paste your assignments from Canvas</h2>
+    </div>
+    <div id="step1content">
+        <p>Go to the "Assignments" page of your Canvas class. Make sure that in the top right, "SHOW BY TYPE" is
+            selected. Now, select everything and copy (Press <span class="keyboardshortcut">CTRL-A/⌘-A</span>
+            and then <span class="keyboardshortcut">CTRL-C/⌘-C</span>). Then, paste the text into the text box
+            below (Press <span class="keyboardshortcut">CTRL-V/⌘-V</span>).</p>
+
+        <p>On mobile iOS, go to the "Assignments" page of the Canvas class on the canvas website (not the app).
+            Scroll all
+            the way down and press and hold on the last bit of text on the bottom right, until you see blue
+            highlighting. Drag the blue handlebar to the very top left of the page, selecting all of the text on the
+            page. Now, just copy and paste the text into the text box below.</p>
+
+        <p>Currently, assignments that aren't counted toward the final grade but have a score inputted still
+            register as a score in the calculation. At this point, just delete those assignments or remove the score
+            and everything should be right.</p>
+
+        <app-assignment-input (parsed)="setCategories($event); goToStep(2);"></app-assignment-input>
+
+    </div>
+</div>
+
+<div #step2Div id="step2">
+    <div id="step2head">
+        <h2> Step 2: Modify your grades and calculate totals</h2>
+    </div>
+    <div id="step2content">
+        <p>Your assignments and scores for each assignment are shown below. Change assignment scores and add
+            assignments as you wish. The grade and totals will be calculated automatically.</p>
+
+        <p>To create assignments, click on the "Add Assignment" button below all assignments in the category. You
+            can now edit the name of the new assignment (by clicking on the name of the added assignment) and the
+            new assignment's score.</p>
+
+        <p>To remove assignments, click on the "×" icon on the right hand side of the assignment.</p>
+
+        <div id="assignmentwrapper">
+            <!--        Assignment List         -->
+            <div id="assignmentList">
+                <app-category *ngFor="let cat of categories" [category]="cat"></app-category>
+            </div>
+            <div id="gradesWrapper">
+                <!--        Sidebar                 -->
+                <div class="sidebarSticky">
+                    <div id="grades">
+                        <h2>Total Grade: <span id="totalGrade">{{grade}}%</span></h2>
+                    </div>
+                    <br>
+                    <div id="weights">
+                        <h2>Weighting:</h2>
+                        <form id="weightList">
+                            <app-weight (weightsChanged)="calculateGrades()" *ngFor="let cat of categories"
+                                        [category]="cat"></app-weight>
+                        </form>
+                    </div>
+                    <app-calc-needed [categories]="categories"></app-calc-needed>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <button (click)="goToStep(1)" id="resetCalculator">Back</button>
+</div>
