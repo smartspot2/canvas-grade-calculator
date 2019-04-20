@@ -15,7 +15,7 @@
         </p>
     </div>
     <div class="categoryContent" id="{{'ctt' + category.id}}">
-        <app-assignment (edited)="category.updateGrades()"
+        <app-assignment (edited)="updateGrades()"
                         (removed)="removeAssignment($event)"
                         *ngFor="let assignment of category.assignments"
                         [assignment]="assignment"

@@ -48,7 +48,7 @@ export class AppComponent implements OnInit, AfterContentInit {
         }
     }
 
-    private calculateGrades() {
+    public calculateGrades() {
         let gradeVal = 0;
         let totalWeights = 0;
         this.categories.forEach(cat => {

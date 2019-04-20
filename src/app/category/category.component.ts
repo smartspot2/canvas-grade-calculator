@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, Input,} from '@angular/core';
+import {AfterViewChecked, Component, EventEmitter, Input, Output,} from '@angular/core';
 import {Category} from '../classes/categoryClass';
 import {Assignment} from "../classes/assignmentClass";
 
@@ -9,6 +9,7 @@ import {Assignment} from "../classes/assignmentClass";
 })
 export class CategoryComponent implements AfterViewChecked {
     @Input() category: Category;
+    @Output('edited') edited = new EventEmitter();
 
     ngAfterViewChecked(): void {
         this.updateMaxHeight();
@@ -47,5 +48,10 @@ export class CategoryComponent implements AfterViewChecked {
         if (catContentDiv != null && catContentDiv.style.maxHeight) {
             catContentDiv.style.maxHeight = catContentDiv.scrollHeight + "px";
         }
+    }
+
+    updateGrades() {
+        this.category.updateGrades();
+        this.edited.emit();
     }
 }

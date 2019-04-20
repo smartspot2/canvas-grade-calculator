@@ -40,7 +40,8 @@
         <div id="assignmentwrapper">
             <!--        Assignment List         -->
             <div id="assignmentList">
-                <app-category *ngFor="let cat of categories" [category]="cat"></app-category>
+                <app-category (edited)="calculateGrades()" *ngFor="let cat of categories"
+                              [category]="cat"></app-category>
             </div>
             <div id="gradesWrapper">
                 <!--        Sidebar                 -->
