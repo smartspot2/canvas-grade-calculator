@@ -1,5 +1,6 @@
-<div class="assignment" id="{{assignment.id}}"><h4
-    class="assignmentName">{{assignment.name}}</h4>
+<div class="assignment" id="{{assignment.id}}">
+    <h4 #nameH4 class="assignmentName">{{assignment.name}}</h4>
+    <input #nameInput class="assignmentName" value="{{assignment.name}}">
     <div class="assignmentScore">
         <div>Score:
             <input #gottenPointsInput
@@ -16,5 +17,5 @@
                    type="text">
         </div>
     </div>
-    <div class="removeAssignment">×</div>
+    <div (click)="removed.emit(assignment)" class="removeAssignment">×</div>
 </div>

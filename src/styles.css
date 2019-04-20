@@ -75,9 +75,9 @@ input[type='text'], select {
 
 /* region           STEP 2 */
 
-/*#step2 {*/
-/*    display: none;                             <--------------------------------- UNCOMMENT*/
-/*}*/
+#step2 {
+    /*display: none;*/
+}
 
 /* endregion */
 
@@ -175,12 +175,15 @@ input[type='text'], select {
 }
 
 input.assignmentName {
+    font-size: 1em;
     font-family: 'Oxygen', 'sans-serif';
     font-weight: bold;
     border-style: none;
     border-radius: 4px;
     text-align: left;
     background-color: rgba(255, 223, 185, 0);
+    margin-top: 9px;
+    margin-bottom: 9px;
 }
 
 .assignmentScore {
@@ -311,7 +314,8 @@ input.assignmentName {
 }
 
 #calcNeeded-category {
-    /*width: 102%;*/
+    max-width: 100%;
+    width: auto;
 }
 
 .calcNeededInput {
@@ -341,7 +345,6 @@ input.assignmentName {
 #calcNeeded-resultParagraph {
     margin-top: 1px;
     margin-bottom: 1px;
-
 }
 
 /* endregion        CALCULATE NEEDED */

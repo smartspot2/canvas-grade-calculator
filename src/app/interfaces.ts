@@ -1,5 +1,0 @@
-interface JQuery {
-    trackChanges(): void;
-}
-
-

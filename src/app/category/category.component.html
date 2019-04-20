@@ -1,21 +1,29 @@
-<div (click)="collapse(category.id)" class="categoryHeader" id="{{'hed' + category.id}}">
-    <div class="categoryCollapse" id="{{'btn' + category.id}}">
-        ►
-    </div>
-    <h3 class="categoryName">{{category.name}} <span class="categoryPercentage">
+<div class="category" id="{{category.id}}">
+    <div (click)="collapse(category.id)" class="categoryHeader" id="{{'hed' + category.id}}">
+        <div class="categoryCollapse" id="{{'btn' + category.id}}">
+            ►
+        </div>
+        <h3 class="categoryName">{{category.name}} <span class="categoryPercentage">
         ({{category.weight * 100}}%)</span>
-    </h3>
-    <p class="categoryGrade">
-        {{category.gradeStr}}%
-        <br>
-        <span class="categoryPercentage">
-            ({{category.receivedPoints}}/{{category.totalPoints}})
+        </h3>
+        <p class="categoryGrade">
+            {{category.gradeStr}}
+            <br>
+            <span class="categoryPercentage">
+            {{category.fracStr}}
         </span>
-    </p>
-</div>
-<div class="categoryContent" id="{{'ctt' + category.id}}">
-    <app-assignment (edited)="category.updateGrades()"
-                    *ngFor="let assignment of category.assignments"
-                    [assignment]="assignment"></app-assignment>
-
+        </p>
+    </div>
+    <div class="categoryContent" id="{{'ctt' + category.id}}">
+        <app-assignment (edited)="category.updateGrades()"
+                        (removed)="removeAssignment($event)"
+                        *ngFor="let assignment of category.assignments"
+                        [assignment]="assignment"
+                        [editableName]="assignment.editableName"></app-assignment>
+        <div (click)="addAssignment()" class="createAssignment">
+            <span class="addAssignmentBtn">
+                Add new assignment
+            </span>
+        </div>
+    </div>
 </div>

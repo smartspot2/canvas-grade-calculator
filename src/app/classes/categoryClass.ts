@@ -7,6 +7,7 @@ export class Category {
     public totalPoints: number;
     public grade: number;
     public gradeStr: string;
+    public fracStr: string;
 
     constructor(public name: string, public weight: number,
                 public assignments?: Assignment[]) {
@@ -29,6 +30,12 @@ export class Category {
         this.updateGrades();
     }
 
+    public removeAssignment(asgnmt: Assignment) {
+        this.assignments.splice(
+            this.assignments.findIndex(a => a.id == asgnmt.id), 1
+        );
+    }
+
     public updateGrades() {
         this.receivedPoints = 0;
         this.totalPoints = 0;
@@ -39,6 +46,14 @@ export class Category {
             }
         });
         this.grade = (this.receivedPoints / this.totalPoints);
-        this.gradeStr = String(Number.parseFloat((this.grade * 100).toFixed(4)));
+        if (!Number.isNaN(this.grade)) {
+            this.gradeStr = String(Number.parseFloat((this.grade * 100).toFixed(4))) + '%';
+            this.fracStr = '(' +
+                Number.parseFloat(this.receivedPoints.toFixed(4)) + '/' +
+                Number.parseFloat(this.totalPoints.toFixed(4)) + ')';
+        } else {
+            this.gradeStr = 'No grade';
+            this.fracStr = '';
+        }
     }
 }
