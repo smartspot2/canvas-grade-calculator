@@ -1,27 +1,14 @@
 # CanvasGradeCalculator
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+## Overview
+This is a simple utility to calculate your grade on Canvas by copy-pasting your "Assignments" page.
 
-## Development server
+After submitting the copy-pasted text, all assignments will be displayed. At this point, you are able to add and edit any assignments you wish. Category weights can also be edited on the right hand side.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This tool also allows you to calculate the amount of points needed to maintain a certain grade. Just specify the total amount of points the assignment is worth, the target grade, and the assignment category, and click "Calculate". You will be shown the number of points you would need to get, along with the corresponding percentage.
 
-## Code scaffolding
+## Bugs/Issues
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+If there are any issues or bugs, feel free to report them in the "Issues" tab.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Any and all suggestions are welcome.
