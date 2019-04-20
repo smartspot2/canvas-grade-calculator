@@ -1,0 +1,33 @@
+<div id="calcNeeded">
+    <h2>Calculate points:</h2>
+    <form id="calcNeededForm">
+        <div class="calcNeededDiv" id="calcNeededDiv-totalPoints">
+            <label class="calcNeededLabel" for="calcNeeded-totalPoints">New Assignment
+                Points:</label>
+            <input #totalPointsElem class="calcNeededInput" id="calcNeeded-totalPoints" type="text"><br>
+        </div>
+
+        <div class="calcNeededDiv" id="calcNeededDiv-targetScore">
+            <label class="calcNeededLabel" for="calcNeeded-targetPercent">Target
+                Grade Percentage:</label>
+            <input #targetPercentElem class="calcNeededInput" id="calcNeeded-targetPercent" type="text">%<br>
+        </div>
+
+        <div class="calcNeededDiv" id="calcNeededDiv-category">
+            <label class="calcNeededLabel" for="calcNeeded-category">Category:</label>
+            <select #categorySelectionElem class="calcNeededInput" id="calcNeeded-category">
+                <option *ngFor="let cat of categories">{{cat.name}}</option>
+            </select><br>
+        </div>
+
+        <div id="calcNeededDiv-result">
+            <p id="calcNeeded-resultParagraph" style="text-align: center;">
+                Points needed:
+                <span #resultPoints id="calcNeeded-result">___</span>
+                pts (<span #resultPercent id="calcNeeded-resultPercent">___</span>%)
+            </p>
+        </div>
+        <br>
+    </form>
+    <button (click)="parseNeededPercentageInput()" id="calcNeeded-submit">Calculate</button>
+</div>
