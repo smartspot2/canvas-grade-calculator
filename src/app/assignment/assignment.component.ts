@@ -17,7 +17,6 @@ export class AssignmentComponent implements AfterViewInit {
     @ViewChild('nameInput') nameInputElement: ElementRef;
 
     ngAfterViewInit(): void {
-        console.log(this.editableName);
         if (this.assignment.score[0] != null) {
             this.gottenInputElement.nativeElement.value = String(this.assignment.score[0]);
         }
@@ -36,7 +35,6 @@ export class AssignmentComponent implements AfterViewInit {
 
     public updateGottenPoints(valStr: string) {
         let valueNum = Number.parseFloat(valStr);
-        console.log({valueNum});
         this.assignment.score[0] = Number.isNaN(valueNum) ? null : valueNum;
         this.edited.emit(this.assignment);
     }
@@ -45,9 +43,5 @@ export class AssignmentComponent implements AfterViewInit {
         let valueNum = Number.parseFloat(valStr);
         this.assignment.score[1] = Number.isNaN(valueNum) ? null : valueNum;
         this.edited.emit(this.assignment);
-    }
-
-    public removeAssignment() {
-
     }
 }

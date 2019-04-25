@@ -41,8 +41,8 @@ export class Category {
         this.totalPoints = 0;
         this.assignments.forEach(asgnmt => {
             if (asgnmt.score[0] != null && asgnmt.score[1] != null) {
-                this.receivedPoints += asgnmt.score[0];
-                this.totalPoints += asgnmt.score[1];
+                this.receivedPoints += asgnmt.getRecievedPoints();
+                this.totalPoints += asgnmt.getTotalPoints();
             }
         });
         this.grade = (this.receivedPoints / this.totalPoints);

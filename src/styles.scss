@@ -1,9 +1,19 @@
-/** {*/
-/*   border-width: 1px;*/
-/*   border-style: solid;*/
-/*   border-color: black;*/
-/*}*/
+//* {
+//   border-width: 1px;
+//   border-style: solid;
+//   border-color: black;
+//}
+@import '~@angular/material/theming';
 
+@include mat-core();
+
+$app-primary: mat-palette($mat-orange);
+$app-accent: mat-palette($mat-yellow);
+
+$app-warn: mat-palette($mat-pink);
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+
+@include angular-material-theme($app-theme);
 
 body {
     font-weight: normal;
@@ -49,25 +59,25 @@ input[type='text'], select {
 }
 
 #copypastefield {
-    width: 90%;
+    width: 100%;
     font-family: 'Garamond', serif;
     font-weight: normal;
     font-size: 1em;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    //-webkit-box-sizing: border-box;
+    //-moz-box-sizing: border-box;
+    //box-sizing: border-box;
 }
 
 #submitbutton, #resetCalculator, #calcNeeded-submit {
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px 10px 15px;
-    background-color: rgb(255, 174, 82);
+    /*border: none;*/
+    /*border-radius: 5px;*/
+    /*padding: 10px 15px 10px 15px;*/
+    /*background-color: rgb(255, 174, 82);*/
     font-family: 'Oxygen', sans-serif;
 }
 
 #calcNeeded-submit {
-    padding: 5px 10px 10px 10px;
+    //padding: 5px 10px 10px 10px;
     margin-bottom: 5px;
 }
 
@@ -301,34 +311,35 @@ input.assignmentName {
 
 .calcNeededDiv {
     /*display: flex;*/
-    margin-left: 10px;
-    margin-bottom: 10px;
-    padding: 3px;
+    margin: 0 0 0 10px;
+    //margin-bottom: 10px;
+    //padding: 3px;
     white-space: nowrap;
 }
 
 .calcNeededLabel {
-    margin: 8px 0 8px 0;
+    //margin: 8px 0 8px 0;
     width: 100%;
     flex: 60%;
 }
 
 #calcNeeded-category {
-    max-width: 100%;
-    width: auto;
+    //max-width: 100%;
+    //width: auto;
+    font-family: 'Garamond', serif;
 }
 
 .calcNeededInput {
-    /*margin: 8px 0 8px 0;*/
+    margin: 0;
     /*width: 100%;*/
     flex: 40%;
     width: 75px;
-    height: 100%;
-    border-style: none;
-    border-radius: 4px;
+    //height: 100%;
+    //border-style: none;
+    //border-radius: 4px;
     text-align: left;
     padding: 2px;
-    background-color: rgba(255, 255, 255, 0.2825);
+    //background-color: rgba(255, 255, 255, 0.2825);
 }
 
 .calcNeededInput::placeholder {
@@ -354,3 +365,5 @@ input.assignmentName {
 
 
 /* endregion GRADE/WEIGHT SIDEBAR*/
+
+

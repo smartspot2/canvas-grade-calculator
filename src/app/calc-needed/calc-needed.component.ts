@@ -1,36 +1,42 @@
 import {AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {Category} from "../classes/categoryClass";
+import {MatDialog} from "@angular/material";
+import {AlertDialog} from "../classes/AlertDialog";
 
 @Component({
     selector: 'app-calc-needed',
     templateUrl: './calc-needed.component.html',
-    styleUrls: ['./calc-needed.component.css']
+    styleUrls: ['./calc-needed.component.scss']
 })
 export class CalcNeededComponent implements AfterViewInit {
     @Input() categories: Category[];
-    @ViewChild('totalPointsElem') totalPointsInput: ElementRef;
-    @ViewChild('targetPercentElem') targetPointsInput: ElementRef;
-    @ViewChild('categorySelectionElem') categoryNameInput: ElementRef;
+    // @ViewChild('totalPointsElem') totalPointsInput: ElementRef;
+    // @ViewChild('targetPercentElem') targetPointsInput: ElementRef;
+    // @ViewChild('categorySelectionElem') categoryNameInput: ElementRef;
     @ViewChild('resultPoints') resultPointsOutput: ElementRef;
     @ViewChild('resultPercent') resultPercentOutput: ElementRef;
+
+    public asgnmtCategory: string;
+    public targetPercentageStr: string;
+    public totalPointsStr: string;
+
+    constructor(public dialog: MatDialog) {
+    }
 
     ngAfterViewInit() {
     }
 
     public parseNeededPercentageInput() {
-        let totalPointsInput = <HTMLInputElement>document.getElementById("calcNeeded-totalPoints");
-        let asgnmtCategoryInput = <HTMLInputElement>document.getElementById("calcNeeded-category");
-        let targetPercentageInput = <HTMLInputElement>document.getElementById("calcNeeded-targetPercent");
-
-        if (totalPointsInput.value === "" || asgnmtCategoryInput.value === "" || targetPercentageInput.value === "") {
+        if (this.totalPointsStr === "" || this.asgnmtCategory === "" || this.targetPercentageStr === "") {
             // Invalid input, alert
-            alert("Invalid or empty calculation input. Please try again.");
+            this.openDialog("Invalid or empty calculation input. Please try again.");
             return;
         }
-        let totalPoints = Number.parseFloat(totalPointsInput.value);
-        let targetPercentage = Number.parseFloat(targetPercentageInput.value);
-        let asgnmtCategory: string = asgnmtCategoryInput.value;
-        let pointsNeeded = this.calculateNeededPercentage(totalPoints, targetPercentage, asgnmtCategory);
+
+        let totalPoints = Number.parseFloat(this.totalPointsStr);
+        let targetPercentage = Number.parseFloat(this.targetPercentageStr);
+
+        let pointsNeeded = this.calculateNeededPercentage(totalPoints, targetPercentage, this.asgnmtCategory);
 
         if (pointsNeeded == null) return;
 
@@ -65,7 +71,7 @@ export class CalcNeededComponent implements AfterViewInit {
         });
 
         if (targetCatTotalSum == null || targetCatGottenSum == null || targetCatWeight == null) {
-            alert("Invalid category. Please try again.");
+            this.openDialog("Invalid category. Please try again.");
             return null;
         }
 
@@ -75,4 +81,8 @@ export class CalcNeededComponent implements AfterViewInit {
         return (targetCatTotalSum + totalPoints) * (targetPercentage / 100 * totalCatWeights - curGrade) / targetCatWeight - targetCatGottenSum;
     }
 
+    private openDialog(displayText: string) {
+        this.dialog.open(AlertDialog,
+            {width: '500px', data: {text: displayText}})
+    }
 }

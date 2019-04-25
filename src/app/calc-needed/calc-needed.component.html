@@ -1,25 +1,39 @@
+<!--suppress HtmlFormInputWithoutLabel -->
 <div id="calcNeeded">
     <h2>Calculate points:</h2>
     <form id="calcNeededForm">
         <div class="calcNeededDiv" id="calcNeededDiv-totalPoints">
-            <label class="calcNeededLabel" for="calcNeeded-totalPoints">New Assignment
-                Points:</label>
-            <input #totalPointsElem class="calcNeededInput" id="calcNeeded-totalPoints" type="text"><br>
+            <label for="calcNeeded-totalPoints">New Assignment
+                Points: </label>
+            <mat-form-field appearance="standard" floatLabel="never">
+                <input #totalPointsElem [(ngModel)]="totalPointsStr" [ngModelOptions]="{standalone: true}"
+                       class="calcNeededInput"
+                       id="calcNeeded-totalPoints" matInput type="text"><br>
+            </mat-form-field>
         </div>
 
         <div class="calcNeededDiv" id="calcNeededDiv-targetScore">
             <label class="calcNeededLabel" for="calcNeeded-targetPercent">Target
-                Grade Percentage:</label>
-            <input #targetPercentElem class="calcNeededInput" id="calcNeeded-targetPercent" type="text">%<br>
+                Grade Percentage: </label>
+            <mat-form-field>
+                <input #targetPercentElem [(ngModel)]="targetPercentageStr" [ngModelOptions]="{standalone: true}"
+                       class="calcNeededInput"
+                       id="calcNeeded-targetPercent" matInput type="text">%<br>
+            </mat-form-field>
         </div>
 
         <div class="calcNeededDiv" id="calcNeededDiv-category">
-            <label class="calcNeededLabel" for="calcNeeded-category">Category:</label>
-            <select #categorySelectionElem class="calcNeededInput" id="calcNeeded-category">
-                <option *ngFor="let cat of categories">{{cat.name}}</option>
-            </select><br>
+            <label class="calcNeededLabel" for="calcNeeded-category">Category: </label>
+            <mat-form-field>
+                <mat-select #categorySelectionElem [(value)]="asgnmtCategory" class="calcNeededInput"
+                            id="calcNeeded-category">
+                    <mat-option *ngFor="let cat of categories" [value]="cat.name">
+                        {{cat.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-
+        <br>
         <div id="calcNeededDiv-result">
             <p id="calcNeeded-resultParagraph" style="text-align: center;">
                 Points needed:
@@ -29,5 +43,6 @@
         </div>
         <br>
     </form>
-    <button (click)="parseNeededPercentageInput()" id="calcNeeded-submit">Calculate</button>
+    <button (click)="parseNeededPercentageInput()" color="primary" id="calcNeeded-submit" mat-raised-button>Calculate
+    </button>
 </div>

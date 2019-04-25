@@ -1,6 +1,8 @@
 import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Assignment} from "../classes/assignmentClass";
 import {Category} from "../classes/categoryClass";
+import {MatDialog} from "@angular/material";
+import {AlertDialog} from "../classes/AlertDialog";
 
 @Component({
     selector: 'app-assignment-input',
@@ -13,6 +15,9 @@ export class CanvasInputComponent {
 
     public categories: Category[];
     public assignments: Assignment[];
+
+    constructor(public dialog: MatDialog) {
+    }
 
     public parseText() {
         this.categories = [];
@@ -27,13 +32,13 @@ export class CanvasInputComponent {
         // Check for miscopied text; alert and don't proceed if incorrect copy-paste
 
         if (textSplit.includes("Name	Due	Status	Score	Out of	Details	Submission Progress Status")) {
-            alert("You have copied the wrong page; please copy-paste the 'Assignments' page in Canvas.");
+            this.openDialog("You have copied the wrong page; please copy-paste the 'Assignments' page in Canvas.");
             return;
         } else if (textSplit.includes("Undated Assignments") || textSplit.includes("Past Assignments")) {
-            alert("You have copied the assignments sorted by date. Please click on 'SHOW BY TYPE' in the top-right corner of the assignments page and try again.");
+            this.openDialog("You have copied the assignments sorted by date. Please click on 'SHOW BY TYPE' in the top-right corner of the assignments page and try again.");
             return;
         } else if (textSplit.length === 1 && textSplit[0] === '') {
-            alert("Please paste something in the text area.");
+            this.openDialog("Please paste something in the text area.");
             return;
         }
 
@@ -47,7 +52,7 @@ export class CanvasInputComponent {
         } else if (textSplit.includes("Show By")) {
             textSplit.splice(0, 3 + textSplit.indexOf("Show By"));
         } else {
-            alert("Invalid text pasted. Please try again and make sure you are copy-pasting everything on the 'Assignments' page in Canvas.");
+            this.openDialog("Invalid text pasted. Please try again and make sure you are copy-pasting everything on the 'Assignments' page in Canvas.");
             return;
         }
 
@@ -62,7 +67,9 @@ export class CanvasInputComponent {
                 let catObj = new Category(category.name, category.weight);
                 this.categories.push(catObj);
                 lastCategory = catObj;
-            } else if (line.includes('Due')) {  // Due Date
+            } else if (line.includes('Due') && line.split(' ').length == 9 &&
+                line.split(' ')[3] == 'at' && line.split(' ')[7] == 'at') {  // Due Date
+                // Should always be in the form "Due [mo] [day] at [time] [mo] [day] at [time]
                 let curAsgnmt = this.assignments.find(a => {
                     return a.id == lastAssignment
                 });
@@ -86,6 +93,8 @@ export class CanvasInputComponent {
                 this.assignments.find(a => {
                     return a.id == lastAssignment
                 }).tag = line;
+            } else if (line.includes("This assignment will not be assigned a grade.")) {
+                this.assignments.find(a => a.id == lastAssignment).noGrade = true;
             } else {                            // Assignment Name
                 let curAssignment = new Assignment(line);
                 this.assignments.push(curAssignment);
@@ -141,4 +150,10 @@ export class CanvasInputComponent {
     private isAssignmentTag(line: string) {
         return line === 'Closed';
     }
+
+    private openDialog(displayText: string) {
+        this.dialog.open(AlertDialog,
+            {width: '500px', data: {text: displayText}})
+    }
 }
+
