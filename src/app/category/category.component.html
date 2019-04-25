@@ -1,8 +1,7 @@
-<div class="category" id="{{category.id}}">
-    <div (click)="collapse(category.id)" class="categoryHeader" id="{{'hed' + category.id}}">
-        <div class="categoryCollapse" id="{{'btn' + category.id}}">
-            ►
-        </div>
+<mat-expansion-panel (afterExpand)="overflowState='visible'" (closed)="overflowState='hidden'"
+                     [style.overflow]="overflowState"
+                     class="category" id="{{category.id}}">
+    <mat-expansion-panel-header #categoryHeader class="categoryHeader" id="{{'hed' + category.id}}">
         <h2 class="categoryName">{{category.name}} <span class="categoryPercentage">
         ({{category.weight * 100}}%)</span>
         </h2>
@@ -13,7 +12,7 @@
             {{category.fracStr}}
         </span>
         </p>
-    </div>
+    </mat-expansion-panel-header>
     <div class="categoryContent" id="{{'ctt' + category.id}}">
         <app-assignment (edited)="updateGrades()"
                         (removed)="removeAssignment($event)"
@@ -26,4 +25,4 @@
             </span>
         </div>
     </div>
-</div>
+</mat-expansion-panel>

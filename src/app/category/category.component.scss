@@ -3,33 +3,29 @@
 .category {
     border-radius: 10px;
     background-color: rgb(255, 223, 185);
-    padding: 15px 0 25px 35px;
     margin: 5px 0;
 }
 
 .categoryHeader {
-    width: 100%;
+    //width: 100%;
     border-style: none;
     border-radius: 10px;
     background-color: rgb(255, 223, 185);
     position: sticky;
-    top: 0;
+    top: -5px;
     display: flex;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 15px 25px;
     cursor: pointer;
 }
 
 .categoryName {
     font-family: 'Oxygen', sans-serif;
-
     display: inline-block;
     height: 100%;
     flex: 80%;
     text-align: left;
     vertical-align: middle;
     margin: auto;
-    /* margin: auto; */
 }
 
 .categoryGrade {
@@ -47,19 +43,9 @@
     color: rgb(95, 95, 95);
 }
 
-.categoryCollapse {
-    display: block;
-    flex: 3%;
-    width: 90%;
-    height: 100%;
-    margin: auto 10px auto auto;
-    background-color: rgba(0, 0, 0, 0);
-    text-align: left;
-}
-
 .categoryContent {
     transition: max-height 0.4s ease-out;
-    max-height: 0;
+    //max-height: 0;
     overflow: hidden;
 }
 

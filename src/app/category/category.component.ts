@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, EventEmitter, Input, Output,} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild,} from '@angular/core';
 import {Category} from '../classes/categoryClass';
 import {Assignment} from "../classes/assignmentClass";
 
@@ -7,28 +7,16 @@ import {Assignment} from "../classes/assignmentClass";
     templateUrl: './category.component.html',
     styleUrls: ['./category.component.scss']
 })
-export class CategoryComponent implements AfterViewChecked {
+export class CategoryComponent implements AfterViewInit {
     @Input() category: Category;
     @Output('edited') edited = new EventEmitter();
 
-    ngAfterViewChecked(): void {
-        this.updateMaxHeight();
-    }
+    @ViewChild('categoryHeader', {read: ElementRef}) catHeader: ElementRef;
 
-    public collapse(catID: string) {
-        let catHeaderDiv = document.getElementById('hed' + catID);
-        let btn = catHeaderDiv.children[0];
+    public overflowState: string;
 
-        let catContentDiv = document.getElementById('ctt' + catID);
-        if (catContentDiv.className === "categoryContent") {
-            if (catContentDiv.style.maxHeight) {
-                catContentDiv.style.maxHeight = null;
-                btn.innerHTML = "&#9658";
-            } else {
-                catContentDiv.style.maxHeight = catContentDiv.scrollHeight + "px";
-                btn.innerHTML = "&#9660";
-            }
-        }
+    ngAfterViewInit(): void {
+        this.catHeader.nativeElement.getElementsByClassName('mat-content')[0].style.overflow = 'visible';
     }
 
     public addAssignment() {
@@ -41,13 +29,6 @@ export class CategoryComponent implements AfterViewChecked {
     public removeAssignment(asgnmt: Assignment) {
         this.category.removeAssignment(asgnmt);
         this.category.updateGrades();
-    }
-
-    private updateMaxHeight() {
-        let catContentDiv = document.getElementById('ctt' + this.category.id);
-        if (catContentDiv != null && catContentDiv.style.maxHeight) {
-            catContentDiv.style.maxHeight = catContentDiv.scrollHeight + "px";
-        }
     }
 
     updateGrades() {
