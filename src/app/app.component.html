@@ -57,18 +57,18 @@
                 <div id="gradesWrapper">
                     <!--        Sidebar                 -->
                     <div class="sidebarSticky">
-                        <div id="grades">
+                        <div class="mat-elevation-z2" id="grades">
                             <h2>Total Grade: <span id="totalGrade">{{grade}}%</span></h2>
                         </div>
                         <br>
-                        <div id="weights">
+                        <div class="mat-elevation-z2" id="weights">
                             <h2>Weighting:</h2>
                             <form id="weightList">
                                 <app-weight (weightsChanged)="calculateGrades()" *ngFor="let cat of categories"
                                             [category]="cat"></app-weight>
                             </form>
                         </div>
-                        <div id="calcNeeded">
+                        <div class="mat-elevation-z2" id="calcNeeded">
                             <h2>Calculate points:</h2>
                             <app-calc-needed [categories]="categories"></app-calc-needed>
                         </div>
@@ -78,7 +78,7 @@
         </div>
         <br>
         <mat-action-row>
-            <button (click)="goToStep(1)" color="primary" id="resetCalculator" mat-raised-button>Back</button>
+            <button (click)="goToStep(1)" color="primary" id="resetCalculator" mat-flat-button>Back</button>
         </mat-action-row>
     </mat-expansion-panel>
 </mat-accordion>

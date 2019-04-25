@@ -5,15 +5,13 @@
     font-size: 15pt;
 }
 
-#submitbutton, #resetCalculator {
-    /*border: none;*/
-    /*border-radius: 5px;*/
-    /*padding: 10px 15px 10px 15px;*/
-    /*background-color: rgb(255, 174, 82);*/
+#resetCalculator {
     font-family: 'Oxygen', sans-serif;
 }
 
 .keyboardshortcut {
+    display: inline-block;
+    margin: 2px 0;
     background-color: #f0f0f0;
     font-family: 'Source Code Pro', monospace;
 }
@@ -47,6 +45,7 @@
     background-color: rgb(255, 223, 185);
     border-radius: 10px;
     padding: 2px 15px 5px 15px;
+    //filter: drop-shadow(-1px 1px 0.5px #AAA);
 }
 
 /* region           WEIGHTS */
