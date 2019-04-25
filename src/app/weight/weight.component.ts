@@ -4,7 +4,7 @@ import {Category} from "../classes/categoryClass";
 @Component({
     selector: 'app-weight',
     templateUrl: './weight.component.html',
-    styleUrls: ['./weight.component.css']
+    styleUrls: ['./weight.component.scss']
 })
 export class WeightComponent implements AfterViewInit {
     @Input() category: Category;

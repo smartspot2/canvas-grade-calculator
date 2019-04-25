@@ -1,0 +1,33 @@
+.weightPercentInput[type='text'] {
+    width: 30px;
+    height: 100%;
+    border-style: none;
+    border-radius: 4px;
+    text-align: center;
+    background-color: rgba(255, 223, 185, 0);
+    font-size: 13pt;
+}
+
+.weightPercent {
+    margin-right: 5px;
+    flex: 25%;
+    width: 100%;
+    text-align: right;
+    white-space: nowrap;
+    font-size: 13pt;
+}
+
+.weightName {
+    font-size: 15pt;
+    width: 100%;
+    flex: 75%;
+}
+
+.weightItem {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 100%;
+    display: flex;
+}

@@ -4,7 +4,7 @@ import {Assignment} from '../classes/assignmentClass';
 @Component({
     selector: 'app-assignment',
     templateUrl: './assignment.component.html',
-    styleUrls: ['./assignment.component.css']
+    styleUrls: ['./assignment.component.scss']
 })
 export class AssignmentComponent implements AfterViewInit {
     @Input() assignment: Assignment;

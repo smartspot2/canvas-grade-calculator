@@ -7,7 +7,7 @@ import {AlertDialog} from "../classes/AlertDialog";
 @Component({
     selector: 'app-assignment-input',
     templateUrl: './canvas-input.component.html',
-    styleUrls: ['./canvas-input.component.css']
+    styleUrls: ['./canvas-input.component.scss']
 })
 export class CanvasInputComponent {
     @Output('parsed') parsed = new EventEmitter<Category[]>();

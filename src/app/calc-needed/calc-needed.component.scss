@@ -1,3 +1,69 @@
+/* region           CALCULATE NEEDED */
+
+#calcNeededForm {
+    font-size: 13pt;
+}
+
+#calcNeeded-submit {
+    font-family: 'Oxygen', sans-serif;
+    margin-bottom: 5px;
+}
+
+.calcNeededDiv {
+    /*display: flex;*/
+    margin: 0 0 0 10px;
+    //margin-bottom: 10px;
+    //padding: 3px;
+    white-space: nowrap;
+}
+
+.calcNeededLabel {
+    //margin: 8px 0 8px 0;
+    width: 100%;
+    flex: 60%;
+}
+
+#calcNeeded-categoryInput {
+    //max-width: 100%;
+    width: auto;
+}
+
+.calcNeededInputText {
+    font-family: 'Garamond', serif;
+    font-size: 13pt;
+}
+
+.calcNeededInput {
+    margin: 0;
+    /*width: 100%;*/
+    flex: 40%;
+    width: 50px;
+    //height: 100%;
+    //border-style: none;
+    //border-radius: 4px;
+    text-align: left;
+    padding: 2px;
+    //background-color: rgba(255, 255, 255, 0.2825);
+}
+
+.calcNeededInput::placeholder {
+    text-align: center;
+}
+
+#calcNeeded-result, #calcNeeded-resultPercent {
+    /*background-color: rgba(255, 255, 255, 0.2825);*/
+    font-family: 'Garamond', serif;
+    font-weight: bold;
+    padding: 2px;
+}
+
+#calcNeeded-resultParagraph {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+/* endregion        CALCULATE NEEDED */
+
 :host ::ng-deep div.mat-form-field-flex {
     padding-top: 0;
 }

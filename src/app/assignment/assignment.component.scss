@@ -1,0 +1,67 @@
+/* region           ASSIGNMENTS*/
+
+.assignment {
+    display: flex;
+    margin: 5px 20px 5px 10px;
+    padding: 5px 5px 5px 10px;
+    background-color: rgba(255, 255, 255, 0.185);
+    border-radius: 5px;
+}
+
+.assignmentName {
+    flex: 50%;
+    float: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 12pt;
+}
+
+input.assignmentName {
+    font-size: 12pt;
+    font-family: 'Oxygen', 'sans-serif';
+    font-weight: bold;
+    border-style: none;
+    border-radius: 4px;
+    text-align: left;
+    background-color: rgba(255, 223, 185, 0);
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
+
+.assignmentScore {
+    flex: 50%;
+    margin: auto;
+    vertical-align: middle;
+    padding-left: 15px;
+    white-space: nowrap;
+    font-size: 11.5pt;
+}
+
+.assignmentScore input {
+    font-size: 11.5pt;
+}
+
+.assignmentScoreText {
+    font-family: 'Garamond', serif;
+    font-weight: normal;
+}
+
+.assignmentScoreGotten, .assignmentScorePossible {
+    width: 40px;
+    border-style: none;
+    border-radius: 4px;
+    text-align: center;
+    background-color: rgba(255, 223, 185, 0);
+}
+
+.removeAssignment {
+    flex: 3%;
+    margin: auto;
+    padding: 3px;
+    vertical-align: middle;
+    font-size: 18pt;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* endregion */
