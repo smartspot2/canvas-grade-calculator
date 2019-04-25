@@ -83,14 +83,6 @@ input[type='text'], select {
 
 /* endregion*/
 
-/* region           STEP 2 */
-
-#step2 {
-    /*display: none;*/
-}
-
-/* endregion */
-
 /* region           CATEGORIES */
 
 .category {
@@ -202,6 +194,11 @@ input.assignmentName {
     vertical-align: middle;
     padding-left: 15px;
     white-space: nowrap;
+}
+
+.assignmentScoreText {
+    font-family: 'Garamond', serif;
+    font-weight: normal;
 }
 
 .assignmentScoreGotten, .assignmentScorePossible {
@@ -323,17 +320,21 @@ input.assignmentName {
     flex: 60%;
 }
 
-#calcNeeded-category {
+#calcNeeded-categoryInput {
     //max-width: 100%;
-    //width: auto;
+    width: auto;
+}
+
+.calcNeededInputText {
     font-family: 'Garamond', serif;
+    font-size: 13pt;
 }
 
 .calcNeededInput {
     margin: 0;
     /*width: 100%;*/
     flex: 40%;
-    width: 75px;
+    width: 50px;
     //height: 100%;
     //border-style: none;
     //border-radius: 4px;

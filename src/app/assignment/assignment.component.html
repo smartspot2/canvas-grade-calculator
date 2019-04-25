@@ -2,7 +2,7 @@
     <h4 #nameH4 class="assignmentName">{{assignment.name}}</h4>
     <input #nameInput class="assignmentName" value="{{assignment.name}}">
     <div class="assignmentScore">
-        <div>Score:
+        <div><span class="assignmentScoreText">Score:</span>
             <input #gottenPointsInput
                    (blur)="updateGottenPoints(gottenPointsInput.value)"
                    (keyup)="updateGottenPoints(gottenPointsInput.value)"

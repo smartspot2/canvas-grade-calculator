@@ -7,7 +7,14 @@ import {CanvasInputComponent} from "./canvas-input/canvas-input.component";
 import {WeightComponent} from './weight/weight.component';
 import {CalcNeededComponent} from './calc-needed/calc-needed.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule} from "@angular/material";
+import {
+    MatButtonModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
+} from "@angular/material";
 import {FormsModule} from "@angular/forms";
 import {AlertDialog} from "./classes/AlertDialog";
 
@@ -29,7 +36,8 @@ import {AlertDialog} from "./classes/AlertDialog";
         MatInputModule,
         MatSelectModule,
         FormsModule,
-        MatDialogModule
+        MatDialogModule,
+        MatExpansionModule
     ],
     providers: [],
     entryComponents: [AlertDialog],

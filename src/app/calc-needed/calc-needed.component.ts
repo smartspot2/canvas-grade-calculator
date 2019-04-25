@@ -10,9 +10,6 @@ import {AlertDialog} from "../classes/AlertDialog";
 })
 export class CalcNeededComponent implements AfterViewInit {
     @Input() categories: Category[];
-    // @ViewChild('totalPointsElem') totalPointsInput: ElementRef;
-    // @ViewChild('targetPercentElem') targetPointsInput: ElementRef;
-    // @ViewChild('categorySelectionElem') categoryNameInput: ElementRef;
     @ViewChild('resultPoints') resultPointsOutput: ElementRef;
     @ViewChild('resultPercent') resultPercentOutput: ElementRef;
 

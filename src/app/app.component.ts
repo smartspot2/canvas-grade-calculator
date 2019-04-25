@@ -1,5 +1,6 @@
-import {AfterContentInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Category} from './classes/categoryClass';
+import {MatExpansionPanel} from "@angular/material";
 
 @Component({
     selector: 'app-root',
@@ -7,19 +8,21 @@ import {Category} from './classes/categoryClass';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, AfterContentInit {
-    public categories: Category[];
+    public categories: Category[] = [];
     public grade: string;
+    public curStep: number = 1;
+    public step1Overflow: string = 'hidden';
+    public step2Overflow: string = 'hidden';
 
-    @ViewChild('step1Div') step1Div: ElementRef;
-    @ViewChild('step2Div') step2Div: ElementRef;
+    @ViewChild('step1Div') step1Div: MatExpansionPanel;
+    @ViewChild('step2Div') step2Div: MatExpansionPanel;
 
     ngOnInit(): void {
-        this.categories = [];
+        this.curStep = 1;
         this.calculateGrades();
     }
 
     ngAfterContentInit(): void {
-        this.step2Div.nativeElement.style.display = 'none';
     }
 
     public setCategories(categories) {
@@ -34,18 +37,7 @@ export class AppComponent implements OnInit, AfterContentInit {
     }
 
     goToStep(n: number) {
-        switch (n) {
-            case 1:
-                // Reset categories and go to beginning
-                this.categories = [];
-                this.step1Div.nativeElement.style.display = 'initial';
-                this.step2Div.nativeElement.style.display = 'none';
-                break;
-            case 2:
-                this.step1Div.nativeElement.style.display = 'none';
-                this.step2Div.nativeElement.style.display = 'initial';
-                break;
-        }
+        this.curStep = n;
     }
 
     public calculateGrades() {
