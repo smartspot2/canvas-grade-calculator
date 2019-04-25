@@ -1,10 +1,9 @@
-<!--suppress HtmlFormInputWithoutLabel -->
 <form id="calcNeededForm">
     <div class="calcNeededDiv" id="calcNeededDiv-totalPoints">
         <label for="calcNeeded-totalPoints">New Assignment
             Points: </label>
         <mat-form-field appearance="standard" class="calcNeededInput" floatLabel="never">
-            <input [(ngModel)]="totalPointsStr" [ngModelOptions]="{standalone: true}"
+            <input [(ngModel)]="totalPointsStr" [ngModelOptions]="{standalone: true}" autocomplete="off"
                    class="calcNeededInputText" id="calcNeeded-totalPoints" matInput type="text"><br>
         </mat-form-field>
     </div>
@@ -13,13 +12,13 @@
         <label class="calcNeededLabel" for="calcNeeded-targetPercent">Target
             Grade Percentage: </label>
         <mat-form-field class="calcNeededInput">
-            <input [(ngModel)]="targetPercentageStr" [ngModelOptions]="{standalone: true}"
+            <input [(ngModel)]="targetPercentageStr" [ngModelOptions]="{standalone: true}" autocomplete="off"
                    class="calcNeededInputText" id="calcNeeded-targetPercent" matInput type="text">%<br>
         </mat-form-field>
     </div>
 
     <div class="calcNeededDiv" id="calcNeededDiv-category">
-        <label class="calcNeededLabel" for="calcNeeded-category">Category: </label>
+        <label class="calcNeededLabel" for="calcNeeded-categoryInput">Category: </label>
         <mat-form-field class="calcNeededInput" id="calcNeeded-categoryInput">
             <mat-select [(value)]="asgnmtCategory"
                         class="calcNeededInputText">

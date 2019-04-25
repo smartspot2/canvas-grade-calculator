@@ -8,12 +8,14 @@
                    (keyup)="updateGottenPoints(gottenPointsInput.value)"
                    class="assignmentScoreGotten"
                    id="gotten-{{assignment.id}}"
+                   autocomplete="off"
                    type="text"> /
             <input #possiblePointsInput
                    (blur)="updatePossiblePoints(possiblePointsInput.value)"
                    (keyup)="updatePossiblePoints(possiblePointsInput.value)"
                    class="assignmentScorePossible"
                    id="possible-{{assignment.id}}"
+                   autocomplete="off"
                    type="text">
         </div>
     </div>
