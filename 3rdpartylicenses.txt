@@ -97,6 +97,10 @@ THE SOFTWARE.
 
 @angular/material/select
 
+@angular/material/snack-bar
+
+@angular/material/tooltip
+
 @angular/platform-browser
 MIT
 
