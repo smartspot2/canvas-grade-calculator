@@ -3,7 +3,6 @@
                          (closed)="goToStep(2); step2Overflow='hidden'; step1Overflow='hidden'"
                          [expanded]="curStep === 1"
                          [style.overflow]="step1Overflow"
-                         hideToggle="true"
                          id="step1">
         <mat-expansion-panel-header id="step1head">
             <h2> Step 1: Copy-paste your assignments from Canvas</h2>
@@ -33,7 +32,6 @@
                          (closed)="goToStep(1); step1Overflow='hidden'; step2Overflow='hidden'"
                          [expanded]="curStep === 2"
                          [style.overflow]="step2Overflow"
-                         hideToggle="true"
                          id="step2">
         <mat-expansion-panel-header id="step2head">
             <h2> Step 2: Modify your grades and calculate totals</h2>

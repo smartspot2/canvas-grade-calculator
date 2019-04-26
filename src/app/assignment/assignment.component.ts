@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Assignment} from '../classes/assignmentClass';
+import {MatTooltip} from "@angular/material";
 
 @Component({
     selector: 'app-assignment',
@@ -11,10 +12,13 @@ export class AssignmentComponent implements AfterViewInit {
     @Input() editableName: boolean;
     @Output() edited = new EventEmitter<Assignment>();
     @Output() removed = new EventEmitter<Assignment>();
+
+    @ViewChild('asgnmtWrapper') asgnmtWrapperElement: ElementRef;
     @ViewChild('gottenPointsInput') gottenInputElement: ElementRef;
     @ViewChild('possiblePointsInput') possibleInputElement: ElementRef;
     @ViewChild('nameH4') nameH4Element: ElementRef;
     @ViewChild('nameInput') nameInputElement: ElementRef;
+    @ViewChild('toolTip') toolTip: MatTooltip;
 
     ngAfterViewInit(): void {
         if (this.assignment.score[0] != null) {
@@ -30,6 +34,14 @@ export class AssignmentComponent implements AfterViewInit {
         } else {
             this.nameH4Element.nativeElement.style.display = 'initial';
             this.nameInputElement.nativeElement.style.display = 'none';
+        }
+
+        if (this.assignment.noGrade) {
+            this.asgnmtWrapperElement.nativeElement.className += ' noGrade';
+            this.toolTip.disabled = false;
+        } else {
+            this.asgnmtWrapperElement.nativeElement.classList.remove('noGrade');
+            this.toolTip.disabled = true;
         }
     }
 

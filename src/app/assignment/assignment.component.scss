@@ -28,6 +28,11 @@ input.assignmentName {
     margin-bottom: 9px;
 }
 
+.noGrade {
+    background-color: rgba(150, 150, 150, 0.185);
+    color: #666;
+}
+
 .assignmentScore {
     flex: 50%;
     margin: auto;

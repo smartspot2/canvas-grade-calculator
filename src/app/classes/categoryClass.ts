@@ -24,16 +24,23 @@ export class Category {
         this.id = String(hash(this.name)).replace(/-/g, '');
     }
 
-    public addAssignment(newAssignment: Assignment) {
-        this.assignments.push(newAssignment);
+    public addAssignment(newAssignment: Assignment, index?: number) {
+        if (index == undefined) {
+            this.assignments.push(newAssignment);
+        } else {
+            this.assignments.splice(index, 0, newAssignment);
+        }
         newAssignment.category = this.name;
         this.updateGrades();
     }
 
     public removeAssignment(asgnmt: Assignment) {
-        this.assignments.splice(
-            this.assignments.findIndex(a => a.id == asgnmt.id), 1
-        );
+        let removedAsgnmt = {
+            index: this.assignments.findIndex(a => a.id == asgnmt.id),
+            assignment: undefined
+        };
+        removedAsgnmt.assignment = this.assignments.splice(removedAsgnmt.index, 1)[0];
+        return removedAsgnmt;
     }
 
     public updateGrades() {

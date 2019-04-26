@@ -13,7 +13,9 @@ import {
     MatExpansionModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule,
+    MatTooltipModule
 } from "@angular/material";
 import {FormsModule} from "@angular/forms";
 import {AlertDialog} from "./classes/AlertDialog";
@@ -37,10 +39,12 @@ import {AlertDialog} from "./classes/AlertDialog";
         MatSelectModule,
         FormsModule,
         MatDialogModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatTooltipModule,
+        MatSnackBarModule
     ],
     providers: [],
-    entryComponents: [AlertDialog],
+    entryComponents: [AlertDialog,],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,4 +1,5 @@
-<div class="assignment" id="{{assignment.id}}">
+<div #asgnmtWrapper #toolTip="matTooltip" class="assignment" id="{{assignment.id}}"
+     matTooltip="Assignment does not count toward the final grade.">
     <h4 #nameH4 class="assignmentName">{{assignment.name}}</h4>
     <input #nameInput class="assignmentName" value="{{assignment.name}}">
     <div class="assignmentScore">

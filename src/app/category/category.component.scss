@@ -1,16 +1,21 @@
 /* region           CATEGORIES */
 
 .category {
-    border-radius: 10px;
+    //border-radius: 10px;
     background-color: rgb(255, 223, 185);
     margin: 5px 0;
+}
+
+.categoryHeader:hover {
+    background-color: rgb(245, 213, 175) !important;
 }
 
 .categoryHeader {
     //width: 100%;
     border-style: none;
-    border-radius: 10px;
-    background-color: rgb(255, 223, 185);
+    //border-radius: 10px;
+    background-color: rgb(255, 223, 185) !important;
+    transition: background-color 0.25s;
     position: sticky;
     top: -5px;
     display: flex;
@@ -44,9 +49,10 @@
 }
 
 .categoryContent {
-    transition: max-height 0.4s ease-out;
+    //transition: max-height 0.4s ease-out;
     //max-height: 0;
     overflow: hidden;
+    transition: height 0.5s;
 }
 
 /* endregion */
