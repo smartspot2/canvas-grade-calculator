@@ -67,7 +67,7 @@ export class CanvasInputComponent {
                 let catObj = new Category(category.name, category.weight);
                 this.categories.push(catObj);
                 lastCategory = catObj;
-            } else if (line.includes('Due') && line.split(' ').length == 9 &&
+            } else if (line.includes('Due') && line.length >= 9 &&
                 line.split(' ')[3] == 'at' && line.split(' ')[7] == 'at') {  // Due Date
                 // Should always be in the form "Due [mo] [day] at [time] [mo] [day] at [time]
                 let curAsgnmt = this.assignments.find(a => {
