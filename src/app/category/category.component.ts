@@ -31,17 +31,16 @@ export class CategoryComponent implements AfterViewInit {
             newAsgnmt.editableName = true;
         } else {
             newAsgnmt = asgnmt;
-            newAsgnmt.editableName = false;
         }
         this.category.addAssignment(newAsgnmt, index);
         this.category.updateGrades();
     }
 
     public removeAssignment(asgnmt: Assignment) {
-        this.openSnackBar('Assignment removed.', 'Undo', () => {
+        this.lastRemoved = this.category.removeAssignment(asgnmt);
+        this.openSnackBar(`Assignment removed: "${this.lastRemoved.assignment.name}"`, 'Undo', () => {
             this.addAssignment(this.lastRemoved.assignment, this.lastRemoved.index);
         });
-        this.lastRemoved = this.category.removeAssignment(asgnmt);
         this.category.updateGrades();
     }
 
