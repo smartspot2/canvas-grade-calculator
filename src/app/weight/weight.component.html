@@ -1,5 +1,8 @@
+<div (click)="removed.emit(category)" class="removeCategory">×</div>
 <p class="weightItem">
-    <span class="weightName">{{category.name}}</span>
+    <input #weightName (blur)="updateName(weightName.value)" (keyup)="updateName(weightName.value)"
+           class="weightName"
+           value="{{category.name}}">
     <span class="weightPercent">
     <input #weightInput
            (blur)="updateWeights()"

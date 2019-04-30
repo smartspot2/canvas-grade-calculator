@@ -18,9 +18,13 @@
 }
 
 .weightName {
+    font-family: 'Garamond', serif;
     font-size: 15pt;
     width: 100%;
-    flex: 75%;
+    border-style: none;
+    border-radius: 4px;
+    background-color: rgba(255, 223, 185, 0);
+    flex: 72%;
 }
 
 .weightItem {
@@ -30,4 +34,15 @@
     padding-bottom: 0;
     width: 100%;
     display: flex;
+    flex: 95%;
+}
+
+.removeCategory {
+    flex: 3%;
+    margin: auto 2px auto 0;
+    padding: 3px 3px 4px;
+    vertical-align: middle;
+    font-size: 18pt;
+    font-weight: 700;
+    cursor: pointer;
 }

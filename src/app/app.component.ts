@@ -1,6 +1,6 @@
 import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Category} from './classes/categoryClass';
-import {MatExpansionPanel} from "@angular/material";
+import {MatExpansionPanel, MatSnackBar} from "@angular/material";
 
 @Component({
     selector: 'app-root',
@@ -13,9 +13,15 @@ export class AppComponent implements OnInit, AfterContentInit {
     public curStep: number = 1;
     public step1Overflow: string = 'hidden';
     public step2Overflow: string = 'hidden';
+    public totalWeightPercentageStr: string;
+
+    private lastRemoved;
 
     @ViewChild('step1Div') step1Div: MatExpansionPanel;
     @ViewChild('step2Div') step2Div: MatExpansionPanel;
+
+    constructor(private snackbar: MatSnackBar) {
+    }
 
     ngOnInit(): void {
         this.curStep = 1;
@@ -43,14 +49,47 @@ export class AppComponent implements OnInit, AfterContentInit {
     public calculateGrades() {
         let gradeVal = 0;
         let totalWeights = 0;
+        let allWeightsTotal = 0;
         this.categories.forEach(cat => {
             if (!Number.isNaN(cat.grade)) {
                 gradeVal += cat.weight * (cat.grade);
                 totalWeights += cat.weight;
             }
+            allWeightsTotal += cat.weight;
         });
         gradeVal /= totalWeights;
 
+        this.totalWeightPercentageStr = String(Number.parseFloat((allWeightsTotal * 100).toFixed(2)));
+
         this.grade = String(Number.parseFloat((gradeVal * 100).toFixed(2)));
+    }
+
+    public addCategory(cat?: Category, index?: number) {
+        if (cat == undefined) {
+            this.categories.push(new Category("New Category", 0));
+        } else {
+            this.categories.splice(index, 0, cat);
+        }
+        this.calculateGrades();
+    }
+
+    public removeCategory(cat: Category) {
+        let removeIndex = this.categories.findIndex(c => c.id == cat.id);
+        this.lastRemoved = {
+            assignment: this.categories.splice(removeIndex, 1)[0],
+            index: removeIndex
+        };
+        this.openSnackBar(`Category removed: ${this.lastRemoved.assignment.name}`, "Undo", () => {
+            this.addCategory(this.lastRemoved.assignment, this.lastRemoved.index);
+        });
+        this.calculateGrades();
+    }
+
+    openSnackBar(msg: string, action: string, callback) {
+        let snackbarRef = this.snackbar.open(msg, action, {
+            duration: 5000
+        });
+
+        snackbarRef.onAction().subscribe(callback);
     }
 }

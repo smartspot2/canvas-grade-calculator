@@ -62,8 +62,16 @@
                         <div class="mat-elevation-z2" id="weights">
                             <h2>Weighting:</h2>
                             <form id="weightList">
-                                <app-weight (weightsChanged)="calculateGrades()" *ngFor="let cat of categories"
-                                            [category]="cat"></app-weight>
+                                <app-weight (removed)="removeCategory($event)" (weightsChanged)="calculateGrades()"
+                                            *ngFor="let cat of categories"
+                                            [category]="cat" style="display: flex;"></app-weight>
+                                <div id="weightTotalPercent"><span
+                                    id="weightTotalOverline">(Total: {{totalWeightPercentageStr}}%)</span></div>
+                                <div class="createCategory">
+                                    <span (click)="addCategory()" class="addCategoryBtn">
+                                        Add new category
+                                    </span>
+                                </div>
                             </form>
                         </div>
                         <div class="mat-elevation-z2" id="calcNeeded">

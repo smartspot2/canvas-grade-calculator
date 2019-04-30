@@ -21,7 +21,7 @@ export class Category {
 
         this.updateGrades();
 
-        this.id = String(hash(this.name)).replace(/-/g, '');
+        this.id = (String(hash(this.name)) + String(Math.round(Math.random() * 100000))).replace(/[-.]/g, '');
     }
 
     public addAssignment(newAssignment: Assignment, index?: number) {

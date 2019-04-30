@@ -9,6 +9,7 @@ import {Category} from "../classes/categoryClass";
 export class WeightComponent implements AfterViewInit {
     @Input() category: Category;
     @Output('weightsChanged') weightsChanged = new EventEmitter();
+    @Output('removed') removed = new EventEmitter<Category>();
     @ViewChild('weightInput') weightElement: ElementRef;
 
     ngAfterViewInit(): void {
@@ -25,5 +26,8 @@ export class WeightComponent implements AfterViewInit {
         this.weightsChanged.emit();
     }
 
+    public updateName(newName: string) {
+        this.category.name = newName;
+    }
 
 }

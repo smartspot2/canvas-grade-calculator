@@ -18,6 +18,29 @@
 
 /* endregion */
 
+/* region           CATEGORIES */
+
+.createCategory {
+    display: flex;
+    margin: 5px 20px 5px 10px;
+    padding: 5px 5px 5px 10px;
+    text-align: center;
+}
+
+.createCategory span {
+    padding: 10px;
+    margin: auto;
+    width: fit-content;
+    font-family: 'Oxygen', 'sans-serif';
+    font-size: 12pt;
+    font-weight: bold;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.178);
+    cursor: pointer;
+}
+
+/* endregion */
+
 /* region           ASSIGNMENTS */
 
 #assignmentwrapper {
@@ -54,6 +77,18 @@
     margin-top: 0;
     margin-bottom: 10px;
     margin-left: 10px;
+}
+
+#weightTotalPercent {
+    font-family: 'Garamond', serif;
+    text-align: right;
+}
+
+#weightTotalOverline {
+    padding-top: 5px;
+    border-top-color: #666666;
+    border-top-width: 1px;
+    border-top-style: solid;
 }
 
 /* endregion WEIGHTS */
