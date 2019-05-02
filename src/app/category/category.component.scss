@@ -55,6 +55,20 @@
     transition: height 0.5s;
 }
 
+.infoIconBtn {
+    background: none;
+    border: none;
+}
+
+.infoIconBtn:focus {
+    outline: 0;
+}
+
+::ng-deep .infoIconTooltip {
+    margin: 5px !important;
+}
+
+
 /* endregion */
 
 /* region          ASSIGNMENTS */

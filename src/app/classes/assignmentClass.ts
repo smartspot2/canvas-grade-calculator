@@ -6,6 +6,8 @@ export class Assignment {
     public tag?: string;
     public editableName?: boolean = false;
     public noGrade?: boolean = false;
+    public statistics: AssignmentStatistics;
+    public comments: Comment[] = [];
 
     constructor(public name: string, public score?: number[],
                 public category?: string) {
@@ -25,3 +27,14 @@ export class Assignment {
     }
 }
 
+class AssignmentStatistics {
+    public mean: number;
+    public min: number;
+    public max: number;
+}
+
+class Comment {
+    public author: string;
+    public date: string;
+    public text: string;
+}

@@ -1,7 +1,8 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild,} from '@angular/core';
 import {Category} from '../classes/categoryClass';
 import {Assignment} from "../classes/assignmentClass";
-import {MatSnackBar} from "@angular/material";
+import {MatDialog, MatSnackBar} from "@angular/material";
+import {StatisticsDialog} from "./category.statisticsdialog.component";
 
 @Component({
     selector: 'app-category',
@@ -15,9 +16,10 @@ export class CategoryComponent implements AfterViewInit {
     @ViewChild('categoryHeader', {read: ElementRef}) catHeader: ElementRef;
 
     public overflowState: string;
+    public infoIconColor: string;
     private lastRemoved;
 
-    constructor(private snackbar: MatSnackBar) {
+    constructor(private snackbar: MatSnackBar, private dialog: MatDialog) {
     }
 
     ngAfterViewInit(): void {
@@ -34,6 +36,7 @@ export class CategoryComponent implements AfterViewInit {
         }
         this.category.addAssignment(newAsgnmt, index);
         this.category.updateGrades();
+        this.edited.emit();
     }
 
     public removeAssignment(asgnmt: Assignment) {
@@ -42,14 +45,26 @@ export class CategoryComponent implements AfterViewInit {
             this.addAssignment(this.lastRemoved.assignment, this.lastRemoved.index);
         });
         this.category.updateGrades();
+        this.edited.emit();
     }
 
-    updateGrades() {
+    public updateGrades() {
         this.category.updateGrades();
         this.edited.emit();
     }
 
-    openSnackBar(msg: string, action: string, callback) {
+    public showStatistics(event: Event) {
+        event.stopPropagation();
+        this.dialog.open(StatisticsDialog,
+            {
+                width: "80%", height: "80%", data: {
+                    category: this.category,
+                    usePercent: false
+                }
+            });
+    }
+
+    private openSnackBar(msg: string, action: string, callback) {
         let snackbarRef = this.snackbar.open(msg, action, {
             duration: 5000
         });

@@ -1,7 +1,15 @@
-<mat-form-field appearance="outline" style="width: 100%">
-    <mat-label>Copy-paste assignments page here</mat-label>
-    <textarea #copypastefield autocomplete="off" id="copypastefield" matInput rows=20></textarea>
-</mat-form-field>
+<!--suppress HtmlFormInputWithoutLabel -->
+<div id="textAreaWrapper">
+    <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Copy and paste assignments page here</mat-label>
+        <textarea #copyPasteFieldAssignments autocomplete="off" id="copyPasteFieldAssignments" matInput
+                  rows=20></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>[Optional] Copy and paste grades page here</mat-label>
+        <textarea #copyPasteFieldGrades autocomplete="off" id="copyPasteFieldGrades" matInput rows=20></textarea>
+    </mat-form-field>
+</div>
 <br><br>
 <mat-action-row>
     <button (click)="parseText()" color="primary" id="submitbutton" mat-flat-button>Submit</button>

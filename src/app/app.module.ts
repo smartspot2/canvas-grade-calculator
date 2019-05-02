@@ -12,13 +12,16 @@ import {
     MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MatSlideToggleModule,
     MatSnackBarModule,
     MatTooltipModule
 } from "@angular/material";
 import {FormsModule} from "@angular/forms";
 import {AlertDialog} from "./classes/AlertDialog";
+import {StatisticsDialog} from "./category/category.statisticsdialog.component";
 
 @NgModule({
     declarations: [
@@ -28,7 +31,8 @@ import {AlertDialog} from "./classes/AlertDialog";
         CanvasInputComponent,
         WeightComponent,
         CalcNeededComponent,
-        AlertDialog
+        AlertDialog,
+        StatisticsDialog
     ],
     imports: [
         BrowserModule,
@@ -41,10 +45,12 @@ import {AlertDialog} from "./classes/AlertDialog";
         MatDialogModule,
         MatExpansionModule,
         MatTooltipModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatIconModule,
+        MatSlideToggleModule
     ],
     providers: [],
-    entryComponents: [AlertDialog,],
+    entryComponents: [AlertDialog, StatisticsDialog],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,0 +1,17 @@
+<div id="statDialogWrapper">
+    <div id="graphDescription">
+        <h3>Statistics</h3>
+        <p>The chart below shows the distribution of scores for each graded assignment in the category. If the y-axis is
+            raw score ("Use percentages for y-axis" is off), then the shaded bar represents the amount of points the
+            assignment is worth.</p>
+        <p>Hover over each bar to show the name of the assignment and numerical details for the min, mean, max, and your
+            score. On the chart, the min and max are denoted by handlebars, the mean is denoted by the cross, and your
+            score is denoted by the dot.</p>
+    </div>
+    <div id="graphDiv">
+        <svg id="graphSvg"></svg>
+    </div>
+    <mat-slide-toggle (change)="toggleUsePercent()" [disableRipple]="true" color="primary" id="usePercentToggle">
+        Use percentages for y-axis
+    </mat-slide-toggle>
+</div>

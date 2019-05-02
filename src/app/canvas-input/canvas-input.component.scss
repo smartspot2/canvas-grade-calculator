@@ -11,3 +11,11 @@
 #submitbutton {
     font-family: 'Oxygen', sans-serif;
 }
+
+#textAreaWrapper {
+    display: flex;
+}
+
+#textAreaWrapper mat-form-field {
+    flex: 50%;
+}
