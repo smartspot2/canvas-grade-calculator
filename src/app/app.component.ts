@@ -1,6 +1,7 @@
 import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Category} from './classes/categoryClass';
-import {MatExpansionPanel, MatSnackBar} from "@angular/material";
+import {MatDialog, MatExpansionPanel, MatSnackBar} from "@angular/material";
+import {GradeTrendDialog} from "./dialog/gradetrenddialog.component";
 
 @Component({
     selector: 'app-root',
@@ -14,13 +15,14 @@ export class AppComponent implements OnInit, AfterContentInit {
     public step1Overflow: string = 'hidden';
     public step2Overflow: string = 'hidden';
     public totalWeightPercentageStr: string;
+    public gradeInfoIconColor;
 
     private lastRemoved;
 
     @ViewChild('step1Div') step1Div: MatExpansionPanel;
     @ViewChild('step2Div') step2Div: MatExpansionPanel;
 
-    constructor(private snackbar: MatSnackBar) {
+    constructor(private dialog: MatDialog, private snackbar: MatSnackBar) {
     }
 
     ngOnInit(): void {
@@ -83,6 +85,16 @@ export class AppComponent implements OnInit, AfterContentInit {
             this.addCategory(this.lastRemoved.assignment, this.lastRemoved.index);
         });
         this.calculateGrades();
+    }
+
+    public showGradeTrend(event: Event) {
+        event.stopPropagation();
+        this.dialog.open(GradeTrendDialog,
+            {
+                width: "80%", height: "80%", data: {
+                    categories: this.categories
+                }
+            });
     }
 
     openSnackBar(msg: string, action: string, callback) {

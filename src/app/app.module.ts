@@ -21,7 +21,8 @@ import {
 } from "@angular/material";
 import {FormsModule} from "@angular/forms";
 import {AlertDialog} from "./classes/AlertDialog";
-import {StatisticsDialog} from "./category/category.statisticsdialog.component";
+import {StatisticsDialog} from "./dialog/category.statisticsdialog.component";
+import {GradeTrendDialog} from "./dialog/gradetrenddialog.component";
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import {StatisticsDialog} from "./category/category.statisticsdialog.component";
         WeightComponent,
         CalcNeededComponent,
         AlertDialog,
-        StatisticsDialog
+        StatisticsDialog,
+        GradeTrendDialog
     ],
     imports: [
         BrowserModule,
@@ -50,7 +52,7 @@ import {StatisticsDialog} from "./category/category.statisticsdialog.component";
         MatSlideToggleModule
     ],
     providers: [],
-    entryComponents: [AlertDialog, StatisticsDialog],
+    entryComponents: [AlertDialog, StatisticsDialog, GradeTrendDialog],
     bootstrap: [AppComponent]
 })
 export class AppModule {

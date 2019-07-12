@@ -56,16 +56,14 @@
 }
 
 .infoIconBtn {
+    display: block;
+    margin-bottom: -2px;
     background: none;
     border: none;
 }
 
 .infoIconBtn:focus {
     outline: 0;
-}
-
-::ng-deep .infoIconTooltip {
-    margin: 5px !important;
 }
 
 

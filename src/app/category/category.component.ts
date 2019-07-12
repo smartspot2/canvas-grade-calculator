@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewC
 import {Category} from '../classes/categoryClass';
 import {Assignment} from "../classes/assignmentClass";
 import {MatDialog, MatSnackBar} from "@angular/material";
-import {StatisticsDialog} from "./category.statisticsdialog.component";
+import {StatisticsDialog} from "../dialog/category.statisticsdialog.component";
 
 @Component({
     selector: 'app-category',

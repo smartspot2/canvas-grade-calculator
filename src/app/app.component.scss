@@ -95,6 +95,26 @@
 
 /* region           GRADES */
 
+#grades {
+    display: flex;
+}
+
+.gradeTrendInfoIconBtn {
+    display: block;
+    flex: 0;
+    margin-bottom: -3px;
+    background: none;
+    border: none;
+}
+
+.gradeTrendInfoIconBtn:focus {
+    outline: none;
+}
+
+::ng-deep .infoIconTooltip {
+    margin: 5px !important;
+}
+
 #gradesWrapper {
     margin-left: 10px;
     flex: 30%;

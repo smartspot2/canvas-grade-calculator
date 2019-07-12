@@ -14,8 +14,6 @@ export class StatisticsDialog implements AfterViewInit {
     private dataset;
     private usePercent;
 
-    private beforeInit = true;
-
     private height: number;
     private width: number;
 
@@ -35,12 +33,10 @@ export class StatisticsDialog implements AfterViewInit {
         this.usePercent = data.usePercent;
         this.category = data.category;
         this.createDataset(data.category);
-        this.beforeInit = true;
     }
 
     ngAfterViewInit(): void {
         this.getScreenSize();
-        this.beforeInit = false;
         this.drawChart();
     }
 

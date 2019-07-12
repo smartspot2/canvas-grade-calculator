@@ -1,0 +1,46 @@
+#trendGraphWrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#trendGraphDescription {
+    flex: 0;
+}
+
+#trendGraphDiv {
+    flex: 80%;
+}
+
+.trendLine {
+    stroke: black;
+    fill: none;
+    stroke-width: 2px;
+}
+
+.trendPoint {
+    fill: rgb(255, 152, 35);
+}
+
+#trendGraphSvg .tick line {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+
+#trendGraphSvg .tick path, #trendGraphSvg .y .domain {
+    stroke-width: 0;
+}
+
+.trendGraphTooltip {
+    position: absolute;
+    background-color: rgb(255, 223, 185);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.trendGraphTooltip h4 {
+    padding: 0;
+    margin: 0;
+}
