@@ -1,8 +1,10 @@
 import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Assignment} from "../classes/assignmentClass";
 import {Category} from "../classes/categoryClass";
-import {MatDialog, MatSnackBar} from "@angular/material";
+import {MatDialog} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
 import {AlertDialog} from "../classes/AlertDialog";
+import {PersistenceService, StorageType} from "angular-persistence";
 
 @Component({
     selector: 'app-assignment-input',
@@ -10,14 +12,16 @@ import {AlertDialog} from "../classes/AlertDialog";
     styleUrls: ['./canvas-input.component.scss']
 })
 export class CanvasInputComponent {
-    @Output('parsed') parsed = new EventEmitter<Category[]>();
+    @Output('parsed') public parsed = new EventEmitter<Category[]>();
     @ViewChild('copyPasteFieldAssignments') assignmentsTextArea: ElementRef;
     @ViewChild('copyPasteFieldGrades') gradesTextArea: ElementRef;
 
     public categories: Category[];
     public assignments: Assignment[];
+    private persistedRaw: { assignments: string, grades: string };
 
-    constructor(public dialog: MatDialog, public snackbar: MatSnackBar) {
+    constructor(public dialog: MatDialog, public snackbar: MatSnackBar,
+                private persistService: PersistenceService) {
     }
 
     private static parseScore(line): number[] {
@@ -37,6 +41,10 @@ export class CanvasInputComponent {
     }
 
     private static parseCategory(line: string) {
+        if (line.match(/^\s/g)) {
+            // TODO: update to have no weight; consider the pooled points across all categories
+            return {name: line.trim(), weight: 1}
+        }
         let splitStr = line.split(' ');
         let percentIndex = splitStr.findIndex(s => s.includes("%"));
         let nameStr = splitStr.slice(0, percentIndex).join(" ");
@@ -48,6 +56,21 @@ export class CanvasInputComponent {
 
     private static isAssignmentTag(line: string) {
         return line == 'Closed' || line == 'LATE' || line == 'MISSING';
+    }
+
+    private static isAssignmentType(line: string) {
+        return line == 'Assignment' || line == 'Quiz';
+    }
+
+    public ngAfterViewInit() {
+        // Get data stored in memory (if at all)
+        this.persistedRaw = this.persistService.get('raw', StorageType.LOCAL);
+
+        if (this.persistedRaw) {
+            console.log('Updating text areas...')
+            this.assignmentsTextArea.nativeElement.value = this.persistedRaw.assignments;
+            this.gradesTextArea.nativeElement.value = this.persistedRaw.grades;
+        }
     }
 
     public parseText() {
@@ -62,17 +85,35 @@ export class CanvasInputComponent {
             }
         }
 
-
         if (parseSuccessful) {
+            // Check if data is different from persisted data
+            let assignmentsText = this.assignmentsTextArea.nativeElement.value;
+            let gradesText = this.gradesTextArea.nativeElement.value;
+            if (this.persistedRaw == undefined || this.persistedRaw.assignments != assignmentsText
+                || this.persistedRaw.grades != gradesText) {
+                // Persist data
+                let persistSuccessful = this.persistService.set('raw',
+                    {assignments: assignmentsText, grades: gradesText},
+                    {
+                        type: StorageType.LOCAL,
+                        timeout: 86400000   // One day
+                    }
+                );
+                if (!persistSuccessful) {
+                    console.error('Persist unsuccessful!');
+                }
+            }
+
             this.parsed.emit(this.categories);
         }
+
     }
 
     private parseAssignmentsText(): boolean {
         let assignmentsText: string = this.assignmentsTextArea.nativeElement.value;
 
         // Split every line
-        let textSplitAssignments: string[] = assignmentsText.split('\n').map(s => s.trim());
+        let textSplitAssignments: string[] = assignmentsText.split('\n').map(s => s.trimRight());
 
         // Check for miscopied text; alert and don't proceed if incorrect copy-paste
 
@@ -105,24 +146,22 @@ export class CanvasInputComponent {
 
         let lastAssignment: Assignment = null;
         let lastCategory: Category = null;
+        let curAssignmentType = '';
         textSplitAssignments.forEach(line => {
-            if (lastCategory == null || line.includes("% of Total")) {
+            if (lastCategory == null || line.includes("% of Total") || line.match(/^\s/g)) {
                 // Should only occur at the beginning of the loop
                 let category = CanvasInputComponent.parseCategory(line);
                 let catObj = new Category(category.name, category.weight);
                 this.categories.push(catObj);
                 lastCategory = catObj;
-            } else if (line.includes('Due') && line.length >= 9 &&
-                line.split(' ')[3] == 'at' && line.split(' ')[7] == 'at') {
+            } else if (line.includes('Due') && line.length >= 9 && line.split(' ')[3] == 'at') {
                 // Due Date
                 // Should always be in the form "Due [mo] [day] at [time] [mo] [day] at [time]
                 if (line.includes('pts')) {
                     // Due date and points on same line
-                    let lineSplit = line.split(" ");
-                    let ptsIndex = lineSplit.indexOf("pts");
-
-                    let dueStr = lineSplit.slice(0, ptsIndex - 1).join(' ');
-                    let scoreStr = lineSplit.slice(ptsIndex - 1).join(' ');
+                    let match = line.match(/([0-9\-]+)\/([0-9\-]+) pts/)
+                    let dueStr = line.slice(0, match.index);
+                    let scoreStr = match[0];
 
                     lastAssignment.score = CanvasInputComponent.parseScore(scoreStr);
                     line = dueStr;
@@ -136,11 +175,16 @@ export class CanvasInputComponent {
                 lastAssignment.tag = line;
             } else if (line.includes("This assignment will not be assigned a grade.")) {
                 lastAssignment.noGrade = true;
+            } else if (CanvasInputComponent.isAssignmentType(line)) {
+                curAssignmentType = line;
+            } else if (line.toLowerCase().includes('available until')) {
+                lastAssignment.setAvailability(line);
             } else {
                 // Assignment Name
                 let curAssignment = new Assignment(line);
                 this.assignments.push(curAssignment);
                 curAssignment.category = lastCategory.name;
+                curAssignment.type = curAssignmentType;
                 lastCategory.addAssignment(curAssignment);
                 lastAssignment = curAssignment;
             }
@@ -164,8 +208,8 @@ export class CanvasInputComponent {
             this.openSnackBar("Skipped parsing grades: Invalid text or wrong page pasted; please copy-paste the 'Grades' page in Canvas.");
             return true;
         } else if (!textSplitGrades.includes("assignment details expanded")) {
-            this.openSnackBar("Skipped parsing grades: Please make sure that all details are expanded; click the 'Show All Details' button under the total grade.");
-            return true;
+            // this.openSnackBar("Skipped parsing grades: Please make sure that all details are expanded; click the 'Show All Details' button under the total grade.");
+            // return true;
         }
 
         // Remove everything before grades
@@ -182,7 +226,6 @@ export class CanvasInputComponent {
         let isComment = false;
         let hasStatistics = false;
         textSplitGrades.forEach(line => {
-            // Skip empty lines
             if (line == '') {
                 // Skip empty lines
             } else if (line == "Score Details\tClose" || line.includes("Click to test a different score")) {
@@ -240,6 +283,7 @@ export class CanvasInputComponent {
             this.openSnackBar("No grade statistics found for any assignment.")
         }
 
+        // Successful parse
         return true;
 
     }

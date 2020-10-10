@@ -16,7 +16,7 @@
             "node_modules/d3"
         ],
         "lib": [
-            "es2018",
+            "es2019",
             "dom"
         ]
     }

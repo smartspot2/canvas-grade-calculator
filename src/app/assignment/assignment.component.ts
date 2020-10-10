@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Assignment} from '../classes/assignmentClass';
-import {MatTooltip} from "@angular/material";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
     selector: 'app-assignment',

@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, HostListener, Inject, ViewEncapsulation} from "@angular/core";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Category} from "../classes/categoryClass";
 import * as d3 from "d3";
 
@@ -124,13 +124,13 @@ export class StatisticsDialog implements AfterViewInit {
             .attr("y", this.margin.top)
             .attr("width", this.barWidth)
             .attr("height", this.height - this.margin.top - this.margin.bottom)
-            .on("mousemove", d => {
+            .on("mousemove", event => {
                 tooltip.transition()
                     .duration(0)
                     .style("opacity", .9);
-                tooltip.html(this.getTooltipHTML(d))
-                    .style("left", (d3.event.pageX + 15) + "px")
-                    .style("top", (d3.event.pageY - Number.parseFloat(tooltip.style('height').slice(0, -2)) - 15) + "px");
+                tooltip.html(this.getTooltipHTML(event.target.__data__))
+                    .style("left", (event.pageX + 15) + "px")
+                    .style("top", (event.pageY - Number.parseFloat(tooltip.style('height').slice(0, -2)) - 15) + "px");
             });
     }
 
@@ -224,13 +224,13 @@ export class StatisticsDialog implements AfterViewInit {
             .attr("width", this.barWidth)
             .attr("height", this.height - this.margin.top - this.margin.bottom)
             .style("opacity", 0)
-            .on("mousemove", d => {
+            .on("mousemove", event => {
                 tooltip.transition()
                     .duration(0)
                     .style("opacity", .9);
-                tooltip.html(this.getTooltipHTML(d))
-                    .style("left", (d3.event.pageX + 15) + "px")
-                    .style("top", (d3.event.pageY - +tooltip.style('height').slice(0, -2) - 15) + "px");
+                tooltip.html(this.getTooltipHTML(event.target.__data__))
+                    .style("left", (event.pageX + 15) + "px")
+                    .style("top", (event.pageY - +tooltip.style('height').slice(0, -2) - 15) + "px");
             })
             .on("mouseout", () => {
                 tooltip.transition()

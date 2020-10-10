@@ -1,6 +1,8 @@
 import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Category} from './classes/categoryClass';
-import {MatDialog, MatExpansionPanel, MatSnackBar} from "@angular/material";
+import {MatDialog} from "@angular/material/dialog";
+import {MatExpansionPanel} from "@angular/material/expansion";
+import {MatSnackBar} from "@angular/material/snack-bar";
 import {GradeTrendDialog} from "./dialog/gradetrenddialog.component";
 
 @Component({
@@ -34,6 +36,7 @@ export class AppComponent implements OnInit, AfterContentInit {
     }
 
     public setCategories(categories) {
+        console.log(categories);
         this.categories = categories;
 
         // Calculate grades

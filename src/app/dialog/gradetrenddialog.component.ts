@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, HostListener, Inject, ViewEncapsulation} from "@angular/core";
 import * as d3 from "d3";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Category} from "../classes/categoryClass";
 
 @Component({
@@ -177,13 +177,13 @@ export class GradeTrendDialog implements AfterViewInit {
             })
             .attr("cy", (d: Data) => `${this.y(d.curGrade)}`)
             .attr("r", this.dataPointRadius)
-            .on("mousemove", d => {
+            .on("mousemove", event => {
                 tooltip.transition()
                     .duration(0)
                     .style("opacity", .9);
-                tooltip.html(this.getTooltipHTML(d))
-                    .style("left", (d3.event.pageX + 15) + "px")
-                    .style("top", (d3.event.pageY - +tooltip.style('height').slice(0, -2) - 15) + "px");
+                tooltip.html(this.getTooltipHTML(event.target.__data__))
+                    .style("left", (event.pageX + 15) + "px")
+                    .style("top", (event.pageY - +tooltip.style('height').slice(0, -2) - 15) + "px");
             })
             .on("mouseout", () => {
                 tooltip.transition()
@@ -256,13 +256,13 @@ export class GradeTrendDialog implements AfterViewInit {
             .data(this.dataset)
             .attr("cx", (d: Data) => `${this.x(d.date)}`)
             .attr("cy", (d: Data) => `${this.y(d.curGrade)}`)
-            .on("mousemove", d => {
+            .on("mousemove", event => {
                 tooltip.transition()
                     .duration(0)
                     .style("opacity", .9);
-                tooltip.html(this.getTooltipHTML(d))
-                    .style("left", (d3.event.pageX + 15) + "px")
-                    .style("top", (d3.event.pageY - +tooltip.style('height').slice(0, -2) - 15) + "px");
+                tooltip.html(this.getTooltipHTML(event.target.__data__))
+                    .style("left", (event.pageX + 15) + "px")
+                    .style("top", (event.pageY - +tooltip.style('height').slice(0, -2) - 15) + "px");
             });
     }
 

@@ -1,7 +1,8 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild,} from '@angular/core';
 import {Category} from '../classes/categoryClass';
 import {Assignment} from "../classes/assignmentClass";
-import {MatDialog, MatSnackBar} from "@angular/material";
+import {MatDialog} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
 import {StatisticsDialog} from "../dialog/category.statisticsdialog.component";
 
 @Component({
