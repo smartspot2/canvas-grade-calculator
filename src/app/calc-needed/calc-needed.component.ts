@@ -65,7 +65,7 @@ export class CalcNeededComponent implements AfterViewInit {
             let curGrade = 0;
 
             this.categories.forEach(cat => {
-                if (cat.name === targetCategory) {
+                if (cat.id === targetCategory) {
                     targetCatGottenSum = cat.receivedPoints;
                     targetCatTotalSum = cat.totalPoints;
                     targetCatWeight = cat.weight;

@@ -22,7 +22,7 @@
         <mat-form-field class="calcNeededInput" id="calcNeeded-categoryInput">
             <mat-select [(value)]="asgnmtCategory"
                         class="calcNeededInputText">
-                <mat-option *ngFor="let cat of categories" [value]="cat.name">
+                <mat-option *ngFor="let cat of categories" [value]="cat.id">
                     {{cat.name}}
                 </mat-option>
             </mat-select>
