@@ -3,7 +3,7 @@ import * as hash from 'string-hash';
 export class Assignment {
     public due?: string;
     public id?: string;
-    public tag?: string;
+    public tags?: string[] = [];
     public type?: string;
     public editableName?: boolean = false;
     public noGrade?: boolean = false;

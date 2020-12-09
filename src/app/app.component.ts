@@ -36,7 +36,6 @@ export class AppComponent implements OnInit, AfterContentInit {
     }
 
     public setCategories(categories) {
-        console.log(categories);
         this.categories = categories;
 
         // Calculate grades
@@ -62,7 +61,18 @@ export class AppComponent implements OnInit, AfterContentInit {
             }
             allWeightsTotal += cat.weight;
         });
-        gradeVal /= totalWeights;
+        if (totalWeights == 0) {
+            gradeVal = 0;
+            let totalPoints = 0;
+            let totalReceived = 0;
+            this.categories.forEach(cat => {
+                totalPoints += cat.totalPoints;
+                totalReceived += cat.receivedPoints;
+            });
+            gradeVal = totalReceived / totalPoints;
+        } else {
+            gradeVal /= totalWeights;
+        }
 
         this.totalWeightPercentageStr = String(Number.parseFloat((allWeightsTotal * 100).toFixed(2)));
 

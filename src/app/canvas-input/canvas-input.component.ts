@@ -40,18 +40,35 @@ export class CanvasInputComponent {
         return [points, outOf];
     }
 
-    private static parseCategory(line: string) {
-        if (line.match(/^\s/g)) {
-            // TODO: update to have no weight; consider the pooled points across all categories
-            return {name: line.trim(), weight: 1}
+    private static parseCategory(line: string, nextLine: string) {
+        let nameStr;
+        let percentStr = '';
+        let skip = false;
+        if (line.includes('%')) {  // weight on current line
+            let lineSplit = line.split(' ');
+            let percentIndex = lineSplit.findIndex(s => s.includes("%"));
+            nameStr = lineSplit.slice(0, percentIndex).join(" ").trim();
+            percentStr = lineSplit[percentIndex];
+        } else if (nextLine.includes('%')) {  // weight on next line
+            let lineSplit = nextLine.split(' ');
+            let percentIndex = lineSplit.findIndex(s => s.includes("%"));
+            nameStr = line.trim();
+            percentStr = lineSplit[percentIndex];
+            skip = true;
+        } else {  // no weight
+            nameStr = line.trim();
         }
-        let splitStr = line.split(' ');
-        let percentIndex = splitStr.findIndex(s => s.includes("%"));
-        let nameStr = splitStr.slice(0, percentIndex).join(" ");
-        let percentStr = splitStr[percentIndex];
+
+        if (!nameStr) {
+            nameStr = 'Unnamed Category';
+        }
+
         // Get only number
-        let percent = parseFloat(percentStr.substr(0, percentStr.length - 1)) * 0.01;
-        return {name: nameStr, weight: percent};
+        let percent = 0;
+        if (percentStr) {
+            percent = parseFloat(percentStr.substr(0, percentStr.length - 1)) * 0.01;
+        }
+        return {skip: skip, cat: {name: nameStr, weight: percent}};
     }
 
     private static isAssignmentTag(line: string) {
@@ -59,7 +76,7 @@ export class CanvasInputComponent {
     }
 
     private static isAssignmentType(line: string) {
-        return line == 'Assignment' || line == 'Quiz';
+        return line == 'Assignment' || line == 'Quiz' || line == 'Discussion Topic';
     }
 
     public ngAfterViewInit() {
@@ -113,7 +130,7 @@ export class CanvasInputComponent {
         let assignmentsText: string = this.assignmentsTextArea.nativeElement.value;
 
         // Split every line
-        let textSplitAssignments: string[] = assignmentsText.split('\n').map(s => s.trimRight());
+        let textSplitAssignments: string[] = assignmentsText.split('\n').map(s => s.trim());
 
         // Check for miscopied text; alert and don't proceed if incorrect copy-paste
 
@@ -136,7 +153,7 @@ export class CanvasInputComponent {
                 return l.includes("SHOW BY TYPE")
             }));
         } else if (textSplitAssignments.includes("Show By")) {
-            textSplitAssignments.splice(0, 3 + textSplitAssignments.indexOf("Show By"));
+            textSplitAssignments.splice(0, 1 + textSplitAssignments.indexOf("Show By"));
         } else {
             this.openDialog("Assignments: Invalid text pasted. Please try again and make sure you are copy-pasting everything on the 'Assignments' page in Canvas.");
             return false;
@@ -144,42 +161,38 @@ export class CanvasInputComponent {
 
         // Create assignments
 
+        // TODO: add ability to paste in modules page in case assignments page is not enabled
+
         let lastAssignment: Assignment = null;
         let lastCategory: Category = null;
         let curAssignmentType = '';
-        textSplitAssignments.forEach(line => {
-            if (lastCategory == null || line.includes("% of Total") || line.match(/^\s/g)) {
-                // Should only occur at the beginning of the loop
-                let category = CanvasInputComponent.parseCategory(line);
+        let parseState = 'category';
+        for (let lineIdx = 0; lineIdx < textSplitAssignments.length; lineIdx++) {
+            let line = textSplitAssignments[lineIdx];
+            let nextLine = (lineIdx < textSplitAssignments.length - 1) ? textSplitAssignments[lineIdx + 1] : '';
+
+            if (!line.trim()) {
+                // empty line
+            } else if (parseState == 'category') {
+                let parseResult = CanvasInputComponent.parseCategory(line, nextLine);
+                let category = parseResult.cat;
+                if (parseResult.skip) {  // used next line, so skip it
+                    lineIdx++;
+                }
                 let catObj = new Category(category.name, category.weight);
                 this.categories.push(catObj);
                 lastCategory = catObj;
-            } else if (line.includes('Due') && line.length >= 9 && line.split(' ')[3] == 'at') {
-                // Due Date
-                // Should always be in the form "Due [mo] [day] at [time] [mo] [day] at [time]
-                if (line.includes('pts')) {
-                    // Due date and points on same line
-                    let match = line.match(/([0-9\-]+)\/([0-9\-]+) pts/)
-                    let dueStr = line.slice(0, match.index);
-                    let scoreStr = match[0];
-
-                    lastAssignment.score = CanvasInputComponent.parseScore(scoreStr);
-                    line = dueStr;
+                parseState = 'assignment type';
+            } else if (parseState == 'assignment type') {
+                // Assignment type
+                if (CanvasInputComponent.isAssignmentType(line)) {
+                    curAssignmentType = line;
+                    parseState = 'assignment name';
+                } else {  // not an assignment; go back to category
+                    lineIdx--;
+                    parseState = 'category';
                 }
-                lastAssignment.due = line;
-            } else if (line.includes('pts')) {
-                // Score
-                lastAssignment.score = CanvasInputComponent.parseScore(line);
-            } else if (CanvasInputComponent.isAssignmentTag(line)) {
-                // Tag
-                lastAssignment.tag = line;
-            } else if (line.includes("This assignment will not be assigned a grade.")) {
-                lastAssignment.noGrade = true;
-            } else if (CanvasInputComponent.isAssignmentType(line)) {
-                curAssignmentType = line;
-            } else if (line.toLowerCase().includes('available until')) {
-                lastAssignment.setAvailability(line);
-            } else {
+            } else if (parseState == 'assignment name') {
                 // Assignment Name
                 let curAssignment = new Assignment(line);
                 this.assignments.push(curAssignment);
@@ -187,8 +200,60 @@ export class CanvasInputComponent {
                 curAssignment.type = curAssignmentType;
                 lastCategory.addAssignment(curAssignment);
                 lastAssignment = curAssignment;
+                parseState = 'assignment tag';
+            } else if (parseState == 'assignment tag') {
+                // Tag
+                if (CanvasInputComponent.isAssignmentTag(line)) {
+                    lastAssignment.tags.push(line.trim());
+                } else {
+                    lineIdx--;
+                }
+                parseState = 'availability';
+            } else if (parseState == 'availability') {
+                if (line.toLowerCase().includes('available until') || line.toLowerCase().includes('closed')) {
+                    lastAssignment.setAvailability(line);
+                } else {
+                    lineIdx--;
+                }
+                parseState = 'due date';
+            } else if (parseState == 'due date') {
+                // Due Date
+                // Should always be in the form "Due [mo] [day] at [time] [mo] [day] at [time]"
+                //  or "Due [mo] [day], [year] at [time] [mo] [day], [year] at [time]"
+                if (line.includes('Due') && line.length >= 9
+                    && (line.split(' ')[3] == 'at' || line.split(' ')[4] == 'at')) {
+                    if (line.includes('pts')) {
+                        // Due date and points on same line
+                        let match = line.match(/([0-9\-]+)\/([0-9\-]+) pts/)
+                        let dueStr = line.slice(0, match.index);
+                        let scoreStr = match[0];
+
+                        lastAssignment.score = CanvasInputComponent.parseScore(scoreStr);
+                        lastAssignment.due = dueStr;
+
+                        parseState = 'assignment type';
+                        continue;
+                    } else if (line.includes("This assignment will not be assigned a grade.")) {
+                        // Due dates and "no grade" on same line
+                        lastAssignment.noGrade = true;
+                        parseState = 'assignment type';
+                        continue;
+                    }
+                    lastAssignment.due = line;
+                } else {  // not a date
+                    lineIdx--;
+                }
+                parseState = 'score';
+            } else if (parseState == 'score') {
+                // Score
+                if (line.includes("This assignment will not be assigned a grade.")) {
+                    lastAssignment.noGrade = true;
+                } else {
+                    lastAssignment.score = CanvasInputComponent.parseScore(line);
+                }
+                parseState = 'assignment type'
             }
-        });
+        }
 
         return true;
     }
@@ -221,6 +286,8 @@ export class CanvasInputComponent {
         }
 
         // Update assignments
+
+        // TODO: parsing grade statistics is broken for some classes
 
         let lastAssignment: Assignment = undefined;
         let isComment = false;
@@ -269,7 +336,7 @@ export class CanvasInputComponent {
                 });
                 isComment = true;
             } else if (CanvasInputComponent.isAssignmentTag(line)) {
-                lastAssignment.tag = line;
+                lastAssignment.tags.push(line.trim());
             } else {
                 // Assignment name
                 lastAssignment = this.assignments.find(asgnmt => asgnmt.name == line);

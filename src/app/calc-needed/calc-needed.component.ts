@@ -33,7 +33,7 @@ export class CalcNeededComponent implements AfterViewInit {
         let totalPoints = Number.parseFloat(this.totalPointsStr);
         let targetPercentage = Number.parseFloat(this.targetPercentageStr);
 
-        let pointsNeeded = this.calculateNeededPercentage(totalPoints, targetPercentage, this.asgnmtCategory);
+        let pointsNeeded = this.calculateNeededPoints(totalPoints, targetPercentage, this.asgnmtCategory);
 
         if (pointsNeeded == null) return;
 
@@ -45,37 +45,52 @@ export class CalcNeededComponent implements AfterViewInit {
         pointsPercentText.innerText = (Math.round(10000 * pointsNeeded / totalPoints) / 100).toString();
     }
 
-    private calculateNeededPercentage(totalPoints: number, targetPercentage: number, targetCategory: string): number {
-        let targetCatGottenSum: number = null;
-        let targetCatTotalSum: number = null;
-        let targetCatWeight: number = null;
-        let totalCatWeights = 0;
-        let curGrade = 0;
+    private calculateNeededPoints(totalPoints: number, targetPercentage: number, targetCategory: string): number {
+        // TODO: add validation for input fields
+        let totalCatWeights = this.categories.reduce((s, cat) => s + cat.weight, 0);
+        if (totalCatWeights == 0) {
+            // just add points up
+            let catTotalReceived = 0;
+            let catTotalPoints = 0;
+            this.categories.forEach(cat => {
+                catTotalReceived += cat.receivedPoints;
+                catTotalPoints += cat.totalPoints;
+            });
+            // targetPercentage / 100 = (catTotalReceived + x) / (catTotalPoints + totalPoints)
+            return (targetPercentage / 100) * (catTotalPoints + totalPoints) - catTotalReceived;
+        } else {
+            let targetCatGottenSum: number = null;
+            let targetCatTotalSum: number = null;
+            let targetCatWeight: number = null;
+            let curGrade = 0;
 
-        this.categories.forEach(cat => {
-            if (cat.name === targetCategory) {
-                targetCatGottenSum = cat.receivedPoints;
-                targetCatTotalSum = cat.totalPoints;
-                targetCatWeight = cat.weight;
-                totalCatWeights += cat.weight;
-                return;
+            this.categories.forEach(cat => {
+                if (cat.name === targetCategory) {
+                    targetCatGottenSum = cat.receivedPoints;
+                    targetCatTotalSum = cat.totalPoints;
+                    targetCatWeight = cat.weight;
+                    return;
+                }
+
+                if (cat.totalPoints === 0) return;
+
+                curGrade += cat.weight * cat.receivedPoints / cat.totalPoints;
+            });
+
+            if (targetCatTotalSum == null || targetCatGottenSum == null || targetCatWeight == null) {
+                this.openDialog("Invalid category. Please try again.");
+                return null;
+            } else if (targetCatWeight == 0) {
+                this.openDialog("Selected category has no weight; " +
+                    "adjust weights or categories and try again.");
+                return null;
             }
 
-            if (cat.totalPoints === 0) return;
+            // Derived from
+            // (curGrade + targetCatWeight * (targetCatGottenSum + x) / (targetCatTotalSum + totalPoints)) / totalCatWeights = targetPercentage/100;
 
-            totalCatWeights += cat.weight;
-            curGrade += cat.weight * cat.receivedPoints / cat.totalPoints;
-        });
-
-        if (targetCatTotalSum == null || targetCatGottenSum == null || targetCatWeight == null) {
-            this.openDialog("Invalid category. Please try again.");
-            return null;
+            return (targetCatTotalSum + totalPoints) * (targetPercentage / 100 * totalCatWeights - curGrade) / targetCatWeight - targetCatGottenSum;
         }
-
-        // Derived from
-        // (curGrade + targetCatWeight * (targetCatGottenSum + x) / (targetCatTotalSum + totalPoints)) / totalCatWeights = targetPercentage/100;
-
-        return (targetCatTotalSum + totalPoints) * (targetPercentage / 100 * totalCatWeights - curGrade) / targetCatWeight - targetCatGottenSum;
     }
 
     private openDialog(displayText: string) {
