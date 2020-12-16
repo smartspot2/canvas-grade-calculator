@@ -72,9 +72,11 @@ export class CalcNeededComponent implements AfterViewInit {
                     return;
                 }
 
-                if (cat.totalPoints === 0) return;
-
-                curGrade += cat.weight * cat.receivedPoints / cat.totalPoints;
+                if (cat.totalPoints === 0) {
+                    totalCatWeights -= cat.weight;
+                } else {
+                    curGrade += cat.weight * cat.receivedPoints / cat.totalPoints;
+                }
             });
 
             if (targetCatTotalSum == null || targetCatGottenSum == null || targetCatWeight == null) {
