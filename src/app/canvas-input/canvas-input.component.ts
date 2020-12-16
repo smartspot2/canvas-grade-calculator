@@ -1,6 +1,8 @@
 import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Assignment} from "../classes/assignmentClass";
 import {Category} from "../classes/categoryClass";
+import {AssignmentParser} from "../parser/assignment-parser";
+import {GradeParser} from "../parser/grade-parser";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AlertDialog} from "../classes/AlertDialog";
@@ -22,61 +24,6 @@ export class CanvasInputComponent {
 
     constructor(public dialog: MatDialog, public snackbar: MatSnackBar,
                 private persistService: PersistenceService) {
-    }
-
-    private static parseScore(line): number[] {
-        let strSplit = line.split(" ");
-        let frac = strSplit[0].split('/');
-
-        let outOf = parseFloat(frac[1]);
-
-        let points;
-        if (frac[0] === '-') {
-            points = null;
-        } else {
-            points = parseFloat(frac[0]);
-        }
-
-        return [points, outOf];
-    }
-
-    private static parseCategory(line: string, nextLine: string) {
-        let nameStr;
-        let percentStr = '';
-        let skip = false;
-        if (line.includes('%')) {  // weight on current line
-            let lineSplit = line.split(' ');
-            let percentIndex = lineSplit.findIndex(s => s.includes("%"));
-            nameStr = lineSplit.slice(0, percentIndex).join(" ").trim();
-            percentStr = lineSplit[percentIndex];
-        } else if (nextLine.includes('%')) {  // weight on next line
-            let lineSplit = nextLine.split(' ');
-            let percentIndex = lineSplit.findIndex(s => s.includes("%"));
-            nameStr = line.trim();
-            percentStr = lineSplit[percentIndex];
-            skip = true;
-        } else {  // no weight
-            nameStr = line.trim();
-        }
-
-        if (!nameStr) {
-            nameStr = 'Unnamed Category';
-        }
-
-        // Get only number
-        let percent = 0;
-        if (percentStr) {
-            percent = parseFloat(percentStr.substr(0, percentStr.length - 1)) * 0.01;
-        }
-        return {skip: skip, cat: {name: nameStr, weight: percent}};
-    }
-
-    private static isAssignmentTag(line: string) {
-        return line == 'Closed' || line == 'LATE' || line == 'MISSING';
-    }
-
-    private static isAssignmentType(line: string) {
-        return line == 'Assignment' || line == 'Quiz' || line == 'Discussion Topic';
     }
 
     public ngAfterViewInit() {
@@ -163,97 +110,10 @@ export class CanvasInputComponent {
 
         // TODO: add ability to paste in modules page in case assignments page is not enabled
 
-        let lastAssignment: Assignment = null;
-        let lastCategory: Category = null;
-        let curAssignmentType = '';
-        let parseState = 'category';
-        for (let lineIdx = 0; lineIdx < textSplitAssignments.length; lineIdx++) {
-            let line = textSplitAssignments[lineIdx];
-            let nextLine = (lineIdx < textSplitAssignments.length - 1) ? textSplitAssignments[lineIdx + 1] : '';
-
-            if (!line.trim()) {
-                // empty line
-            } else if (parseState == 'category') {
-                let parseResult = CanvasInputComponent.parseCategory(line, nextLine);
-                let category = parseResult.cat;
-                if (parseResult.skip) {  // used next line, so skip it
-                    lineIdx++;
-                }
-                let catObj = new Category(category.name, category.weight);
-                this.categories.push(catObj);
-                lastCategory = catObj;
-                parseState = 'assignment type';
-            } else if (parseState == 'assignment type') {
-                // Assignment type
-                if (CanvasInputComponent.isAssignmentType(line)) {
-                    curAssignmentType = line;
-                    parseState = 'assignment name';
-                } else {  // not an assignment; go back to category
-                    lineIdx--;
-                    parseState = 'category';
-                }
-            } else if (parseState == 'assignment name') {
-                // Assignment Name
-                let curAssignment = new Assignment(line);
-                this.assignments.push(curAssignment);
-                curAssignment.category = lastCategory.name;
-                curAssignment.type = curAssignmentType;
-                lastCategory.addAssignment(curAssignment);
-                lastAssignment = curAssignment;
-                parseState = 'assignment tag';
-            } else if (parseState == 'assignment tag') {
-                // Tag
-                if (CanvasInputComponent.isAssignmentTag(line)) {
-                    lastAssignment.tags.push(line.trim());
-                } else {
-                    lineIdx--;
-                }
-                parseState = 'availability';
-            } else if (parseState == 'availability') {
-                if (line.toLowerCase().includes('available until') || line.toLowerCase().includes('closed')) {
-                    lastAssignment.setAvailability(line);
-                } else {
-                    lineIdx--;
-                }
-                parseState = 'due date';
-            } else if (parseState == 'due date') {
-                // Due Date
-                // Should always be in the form "Due [mo] [day] at [time] [mo] [day] at [time]"
-                //  or "Due [mo] [day], [year] at [time] [mo] [day], [year] at [time]"
-                if (line.includes('Due') && line.length >= 9
-                    && (line.split(' ')[3] == 'at' || line.split(' ')[4] == 'at')) {
-                    if (line.includes('pts')) {
-                        // Due date and points on same line
-                        let match = line.match(/([0-9\-]+)\/([0-9\-]+) pts/)
-                        let dueStr = line.slice(0, match.index);
-                        let scoreStr = match[0];
-
-                        lastAssignment.score = CanvasInputComponent.parseScore(scoreStr);
-                        lastAssignment.due = dueStr;
-
-                        parseState = 'assignment type';
-                        continue;
-                    } else if (line.includes("This assignment will not be assigned a grade.")) {
-                        // Due dates and "no grade" on same line
-                        lastAssignment.noGrade = true;
-                        parseState = 'assignment type';
-                        continue;
-                    }
-                    lastAssignment.due = line;
-                } else {  // not a date
-                    lineIdx--;
-                }
-                parseState = 'score';
-            } else if (parseState == 'score') {
-                // Score
-                if (line.includes("This assignment will not be assigned a grade.")) {
-                    lastAssignment.noGrade = true;
-                } else {
-                    lastAssignment.score = CanvasInputComponent.parseScore(line);
-                }
-                parseState = 'assignment type'
-            }
-        }
+        let parser = new AssignmentParser(textSplitAssignments);
+        parser.parse();
+        this.categories = parser.categories;
+        this.assignments = parser.assignments;
 
         return true;
     }
@@ -287,66 +147,10 @@ export class CanvasInputComponent {
 
         // Update assignments
 
-        // TODO: parsing grade statistics is broken for some classes
+        let parser = new GradeParser(textSplitGrades, this.assignments);
+        parser.parse();
 
-        let lastAssignment: Assignment = undefined;
-        let isComment = false;
-        let hasStatistics = false;
-        textSplitGrades.forEach(line => {
-            if (line == '') {
-                // Skip empty lines
-            } else if (line == "Score Details\tClose" || line.includes("Click to test a different score")) {
-                // Titles/scores; skip
-                // If assignment undefined, keep looking until there is a defined assignment
-            } else if (lastAssignment == undefined) {
-                // Keep loooking for new assignment if last is not found
-                lastAssignment = this.assignments.find(asgnmt => asgnmt.name == line);
-            } else if (isComment) {
-                // Currently in comment
-                let curComment = lastAssignment.comments[lastAssignment.comments.length - 1];
-                let lineSplit = line.split(' ');
-                if (line.includes(',') && lineSplit[lineSplit.length - 2] == 'at' && (line.endsWith('am') || line.endsWith('pm'))) {
-                    // End of comment
-                    curComment.text = curComment.text.trim();
-                    curComment.author = line.split(', ')[0];
-                    curComment.date = line.split(', ')[1];
-                    isComment = false;
-                } else {
-                    // Add to end of comment
-                    curComment.text += line + '\n';
-                }
-            } else if (line.split(' ').length == 4 && line.split(' ')[2] == 'by') {
-                // Due Date
-                lastAssignment.due = line;
-            } else if (line.includes("Mean:") && line.includes("High:") && line.includes("Low:")) {
-                // Statistics
-                hasStatistics = true;
-                let statSplit = line.split('\t');
-                lastAssignment.statistics = {
-                    mean: Number.parseFloat(statSplit[0].split(' ')[1]),
-                    max: Number.parseFloat(statSplit[1].split(' ')[1]),
-                    min: Number.parseFloat(statSplit[2].split(' ')[1])
-                }
-            } else if (line == "Comments\tClose") {
-                // Comment start
-                lastAssignment.comments.push({
-                    date: undefined,
-                    text: undefined,
-                    author: undefined
-                });
-                isComment = true;
-            } else if (CanvasInputComponent.isAssignmentTag(line)) {
-                lastAssignment.tags.push(line.trim());
-            } else {
-                // Assignment name
-                lastAssignment = this.assignments.find(asgnmt => asgnmt.name == line);
-                if (lastAssignment == undefined) {
-                    // console.log("[assignment not found]\t" + line);
-                }
-            }
-        });
-
-        if (!hasStatistics) {
+        if (!parser.hasStatistics) {
             this.openSnackBar("No grade statistics found for any assignment.")
         }
 
