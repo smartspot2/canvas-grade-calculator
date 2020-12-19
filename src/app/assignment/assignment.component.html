@@ -1,9 +1,10 @@
-<div #asgnmtWrapper #toolTip="matTooltip" class="assignment" id="{{assignment.id}}"
+<div #asgnmtWrapper #toolTip="matTooltip" class="assignment flex flex-row items-center" id="{{assignment.id}}"
      matTooltip="Assignment does not count toward the final grade.">
-    <h4 #nameH4 class="assignmentName">{{assignment.name}}</h4>
-    <input #nameInput class="assignmentName" value="{{assignment.name}}">
-    <div class="assignmentScore">
-        <div><span class="assignmentScoreText">Score:</span>
+    <h4 #nameH4 class="assignmentName flex-shrink w-1/3">{{assignment.name}}</h4>
+    <input #nameInput class="assignmentName flex-shrink w-1/3" value="{{assignment.name}}">
+    <div class="assignmentScore flex-none w-1/3">
+        <div class="text-center">
+            <span class="assignmentScoreText">Score:</span>
             <input #gottenPointsInput
                    (blur)="updateGottenPoints(gottenPointsInput.value)"
                    (keyup)="updateGottenPoints(gottenPointsInput.value)"
@@ -20,5 +21,10 @@
                    type="text">
         </div>
     </div>
-    <div (click)="removed.emit(assignment)" class="removeAssignment">×</div>
+    <div class="iconDiv text-right flex justify-end">
+        <button class="commentIconBtn" *ngIf="assignment.comments.length > 0">
+            <mat-icon class="commentIconImg">comment</mat-icon>
+        </button>
+        <div (click)="removed.emit(assignment)" class="removeAssignment w-min float-right">×</div>
+    </div>
 </div>

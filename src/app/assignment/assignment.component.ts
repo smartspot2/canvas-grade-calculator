@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Assignment} from '../classes/assignmentClass';
 import {MatTooltip} from "@angular/material/tooltip";
+import {MatGridList} from "@angular/material/grid-list";
 
 @Component({
     selector: 'app-assignment',
@@ -19,6 +20,8 @@ export class AssignmentComponent implements AfterViewInit {
     @ViewChild('nameH4') nameH4Element: ElementRef;
     @ViewChild('nameInput') nameInputElement: ElementRef;
     @ViewChild('toolTip') toolTip: MatTooltip;
+
+    public tagIconColor: string = 'black';
 
     ngAfterViewInit(): void {
         if (this.assignment.score[0] != null) {

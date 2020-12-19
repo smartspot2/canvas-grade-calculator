@@ -1,19 +1,18 @@
 /* region           ASSIGNMENTS*/
 
 .assignment {
-    display: flex;
-    margin: 5px 20px 5px 10px;
+    margin: 5px 10px;
     padding: 5px 5px 5px 10px;
     background-color: rgba(255, 255, 255, 0.185);
     border-radius: 5px;
 }
 
 .assignmentName {
-    flex: 50%;
     float: left;
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 12pt;
+    min-width: 30%;
 }
 
 input.assignmentName {
@@ -24,8 +23,6 @@ input.assignmentName {
     border-radius: 4px;
     text-align: left;
     background-color: rgba(255, 223, 185, 0);
-    margin-top: 9px;
-    margin-bottom: 9px;
 }
 
 .noGrade {
@@ -34,7 +31,6 @@ input.assignmentName {
 }
 
 .assignmentScore {
-    flex: 50%;
     margin: auto;
     vertical-align: middle;
     padding-left: 15px;
@@ -59,10 +55,45 @@ input.assignmentName {
     background-color: rgba(255, 223, 185, 0);
 }
 
-.removeAssignment {
-    flex: 3%;
-    margin: auto;
+.iconDiv {
+    min-width: 20%;
+}
+
+.tagContainer {
+    display: block;
+    //margin: auto 0;
+    width: min-content;
+    height: min-content;
     padding: 3px;
+    border-radius: 5px;
+    border: indianred 2px solid;
+    color: indianred;
+    font-weight: bold;
+    vertical-align: center;
+}
+
+.commentIconBtn {
+    display: block;
+    margin-bottom: -2px;
+    margin-right: 5px;
+    background: none;
+    border: none;
+}
+
+.commentIconBtn:focus {
+    outline: none;
+}
+
+.commentIconImg {
+    color: black;
+}
+
+.commentIconImg:hover {
+    color: gray;
+}
+
+.removeAssignment {
+    margin: 3px 10px 3px 3px;
     vertical-align: middle;
     font-size: 18pt;
     font-weight: 700;

@@ -4,10 +4,7 @@
     <mat-expansion-panel-header #categoryHeader class="categoryHeader" id="{{'hed' + category.id}}">
         <button (click)="showStatistics($event)"
                 class="infoIconBtn">
-            <mat-icon (mouseenter)="infoIconColor = 'gray'"
-                      (mouseleave)="infoIconColor = 'black'"
-                      [style.color]="infoIconColor"
-                      class="infoIconImg"
+            <mat-icon class="infoIconImg"
                       matTooltip="Show statistics"
                       matTooltipClass="infoIconTooltip"
                       matTooltipPosition="above">

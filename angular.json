@@ -23,6 +23,7 @@
                             "src/assets"
                         ],
                         "styles": [
+                            "src/tailwind.css",
                             "src/styles.scss"
                         ],
                         "scripts": []
@@ -79,6 +80,7 @@
                         "tsConfig": "src/tsconfig.spec.json",
                         "karmaConfig": "src/karma.conf.js",
                         "styles": [
+                            "src/tailwind.css",
                             "src/styles.scss"
                         ],
                         "scripts": [],

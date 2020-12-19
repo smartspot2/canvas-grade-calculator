@@ -17,7 +17,6 @@ export class CategoryComponent implements AfterViewInit {
     @ViewChild('categoryHeader', {read: ElementRef}) catHeader: ElementRef;
 
     public overflowState: string;
-    public infoIconColor: string;
     private lastRemoved;
 
     constructor(private snackbar: MatSnackBar, private dialog: MatDialog) {
