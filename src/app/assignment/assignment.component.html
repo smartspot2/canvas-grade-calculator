@@ -1,7 +1,7 @@
-<div #asgnmtWrapper #toolTip="matTooltip" class="assignment flex flex-row items-center" id="{{assignment.id}}"
+<div id="{{assignment.id}}" class="assignment flex flex-row items-center" #asgnmtWrapper #toolTip="matTooltip"
      matTooltip="Assignment does not count toward the final grade.">
-    <h4 #nameH4 class="assignmentName flex-shrink w-1/3">{{assignment.name}}</h4>
-    <input #nameInput class="assignmentName flex-shrink w-1/3" value="{{assignment.name}}">
+    <h4 class="assignmentName flex-shrink w-1/3" #nameH4>{{assignment.name}}</h4>
+    <input class="assignmentName flex-shrink w-1/3" #nameInput value="{{assignment.name}}">
     <div class="assignmentScore flex-none w-1/3">
         <div class="text-center">
             <span class="assignmentScoreText">Score:</span>
@@ -25,6 +25,6 @@
         <button class="commentIconBtn" *ngIf="assignment.comments.length > 0">
             <mat-icon class="commentIconImg">comment</mat-icon>
         </button>
-        <div (click)="removed.emit(assignment)" class="removeAssignment w-min float-right">×</div>
+        <div class="removeAssignment w-min float-right" (click)="removed.emit(assignment)">×</div>
     </div>
 </div>
